@@ -1,21 +1,23 @@
 
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Camera} from 'expo-camera';
 
 const Stack = createNativeStackNavigator();
 
+let camera;
+
 export default function App() {
 	return(
 		<NavigationContainer>
 			<Stack.Navigator>
 				<Stack.Screen name="Start" component={StartScreen}/>
-				<Stack.Screen name="Home" component={HomeScreen}/>		
-      			<Stack.Screen name="Scanner" component={EcoScannerScreen}/>	
-				<Stack.Screen name="Camera" component={CameraScreen}/>				
+				<Stack.Screen name="Home" component={HomeScreen}/>
+      			<Stack.Screen name="Scanner" component={EcoScannerScreen}/>
+				<Stack.Screen name="Camera" component={CameraScreen}/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
@@ -62,39 +64,78 @@ const EcoScannerScreen = ({navigation}) => {
 const CameraScreen = ({navigation, route}) => {
 	const id = route.params.id;
 	const [type, setType] = useState(Camera.Constants.Type.back);
+	const [previewVisible, setPreviewVisible] = useState(false)
+	const [capturedImage, setCapturedImage] = useState(null)
 	//const [hasPermission, setHasPermission] = useState(null);
-	
+
 	const { status } = Camera.requestCameraPermissionsAsync();
 
-	
+	const __takePicture = async () => {
+	 const photo = await camera.takePictureAsync()
+	 console.log(photo)
+	 setPreviewVisible(true)
+	 // //setStartCamera(false)
+	 setCapturedImage(photo)
+ }
+
 	if (status === null) {
 		return <View />;
 	}
-	
+
 	if (status === false) {
 		return <Text>No access to camera</Text>;
 	}
-	
+
 	return (
 		<View style={styles.camera}>
-		<Camera style={styles.camera} type={type}>
-			<View style={styles.buttonContainer}>
-			<TouchableOpacity
-				style={styles.button}
-				onPress={() => {
-				setType(
-					type === Camera.Constants.Type.back
-					? Camera.Constants.Type.front
-					: Camera.Constants.Type.back
-				);
-				}}>
-				<Text style={styles.text}> Flip </Text>
-			</TouchableOpacity>
-			</View>
-		</Camera>
+		{previewVisible && capturedImage ? (
+			<CameraPreview photo={capturedImage} />
+		) : (
+			<Camera style={styles.camera} type={type} ref={(r) => { camera = r }}>
+				<View style={styles.buttonContainer}>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={() => {
+					setType(
+						type === Camera.Constants.Type.back
+						? Camera.Constants.Type.front
+						: Camera.Constants.Type.back
+					);
+					}}>
+					<Text style={styles.text}> Flip </Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={__takePicture}>
+					<Text style={styles.text}> Take Photo </Text>
+				</TouchableOpacity>
+				</View>
+			</Camera>
+		)}
 		</View>
   	);
-	
+
+}
+
+const CameraPreview = ({photo}) => {
+  console.log('sdsfds', photo)
+  return (
+    <View
+      style={{
+        backgroundColor: 'transparent',
+        flex: 1,
+        width: '100%',
+        height: '100%'
+      }}
+    >
+      <ImageBackground
+        source={{uri: photo && photo.uri}}
+        style={{
+          flex: 1
+        }}
+      />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
