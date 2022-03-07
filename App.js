@@ -8,6 +8,10 @@ import {Camera} from 'expo-camera';
 
 const Stack = createNativeStackNavigator();
 
+state = {
+	predictions: [],       
+};
+
 let camera;
 
 export default function App() {
@@ -60,6 +64,25 @@ const EcoScannerScreen = ({navigation}) => {
 	);
 }
 
+resize = async photo => {
+	let manipulatedImage = await ImageManipulator.manipulateAsync(
+		photo,
+		[{ resize: { height: 300, width: 300 } }],
+		{ base64: true }
+	);
+	return manipulatedImage.base64;
+}
+
+predict = async image => {
+
+	let predictions = await clarifai.models.predict(
+	//predicts general MODE NOT FOOD
+	clarifai.GENERAL.MODEL, // model need to get prediction from
+	image
+	);
+	return predictions;
+};
+
 
 const CameraScreen = ({navigation, route}) => {
 	const id = route.params.id;
@@ -70,13 +93,40 @@ const CameraScreen = ({navigation, route}) => {
 
 	const { status } = Camera.requestCameraPermissionsAsync();
 
-	const __takePicture = async () => {
+	/*const __takePicture = async () => {
 	 const photo = await camera.takePictureAsync()
 	 console.log(photo)
 	 setPreviewVisible(true)
 	 // //setStartCamera(false)
 	 setCapturedImage(photo)
- }
+	 return photo.uri;
+ }*/
+
+ 	const Clarifai = require('clarifai');
+
+	const app  = new Clarifai.App({
+    apiKey: 'c5c1b443f2ed41248f644a7dbeeb71a4'
+	})
+
+	process.nextTick = setImmediate;
+
+	objectDetection = async () => {
+
+		const photo = await camera.takePictureAsync()
+		console.log(photo)
+		setPreviewVisible(true)
+		// //setStartCamera(false)
+		setCapturedImage(photo)
+
+		let resized = await this.resize(photo);
+		let predictions = await this.predict(resized);
+		this.setState({ predictions: predictions.outputs[0].data.concepts });
+		console.log(this.state.predictions);  
+
+		return predictions;
+
+	};
+
 
 	if (status === null) {
 		return <View />;
@@ -106,7 +156,7 @@ const CameraScreen = ({navigation, route}) => {
 				</TouchableOpacity>
 				<TouchableOpacity
 					style={styles.button}
-					onPress={__takePicture}>
+					onPress={this.objectDetection}>
 					<Text style={styles.text}> Take Photo </Text>
 				</TouchableOpacity>
 				</View>
@@ -117,8 +167,14 @@ const CameraScreen = ({navigation, route}) => {
 
 }
 
-const CameraPreview = ({photo}) => {
+
+const CameraPreview = ({photo, predictions}) => {
+ 
   console.log('sdsfds', photo)
+  
+  alert(predictions);  
+  //var predict  = predictions
+
   return (
     <View
       style={{
@@ -137,6 +193,8 @@ const CameraPreview = ({photo}) => {
     </View>
   )
 }
+
+
 
 const styles = StyleSheet.create({
 	button: {flex: 1, alignItems: 'center', justifyContent: 'center'},
