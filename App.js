@@ -92,7 +92,7 @@ const CameraScreen = ({navigation, route}) => {
 	//const [hasPermission, setHasPermission] = useState(null);
 
 	const { status } = Camera.requestCameraPermissionsAsync();
-/*
+ /*
 	const __takePicture = async () => {
 	 const photo = await camera.takePictureAsync()
 	 console.log(photo)
@@ -105,7 +105,7 @@ const CameraScreen = ({navigation, route}) => {
  objectDetection = async () => {
 	
 	const photo = await camera.takePictureAsync()
-	 console.log(photo)
+	console.log(photo)
 	 setPreviewVisible(true)
 	 // //setStartCamera(false)
 	 setCapturedImage(photo)
