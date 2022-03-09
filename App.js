@@ -92,8 +92,8 @@ const CameraScreen = ({navigation, route}) => {
 	//const [hasPermission, setHasPermission] = useState(null);
 
 	const { status } = Camera.requestCameraPermissionsAsync();
-
-	/*const __takePicture = async () => {
+/*
+	const __takePicture = async () => {
 	 const photo = await camera.takePictureAsync()
 	 console.log(photo)
 	 setPreviewVisible(true)
@@ -101,6 +101,22 @@ const CameraScreen = ({navigation, route}) => {
 	 setCapturedImage(photo)
 	 return photo.uri;
  }*/
+
+ objectDetection = async () => {
+	
+	const photo = await camera.takePictureAsync()
+	 console.log(photo)
+	 setPreviewVisible(true)
+	 // //setStartCamera(false)
+	 setCapturedImage(photo)
+	let resized = await this.resize(photo);
+	let predictions = await this.predict(resized);
+	this.setState({ predictions: predictions.outputs[0].data.concepts });
+	console.log(this.state.predictions); 
+	return photo.uri;
+	//return predictions;
+
+}
 
  	const Clarifai = require('clarifai');
 
@@ -110,22 +126,6 @@ const CameraScreen = ({navigation, route}) => {
 
 	process.nextTick = setImmediate;
 
-	objectDetection = async () => {
-
-		const photo = await camera.takePictureAsync()
-		console.log(photo)
-		setPreviewVisible(true)
-		// //setStartCamera(false)
-		setCapturedImage(photo)
-
-		let resized = await this.resize(photo);
-		let predictions = await this.predict(resized);
-		this.setState({ predictions: predictions.outputs[0].data.concepts });
-		console.log(this.state.predictions);  
-
-		return predictions;
-
-	};
 
 
 	if (status === null) {
@@ -168,11 +168,11 @@ const CameraScreen = ({navigation, route}) => {
 }
 
 
-const CameraPreview = ({photo, predictions}) => {
+const CameraPreview = ({photo }) => {
  
   console.log('sdsfds', photo)
   
-  alert(predictions);  
+  //alert(predictions);  
   //var predict  = predictions
 
   return (
@@ -191,8 +191,34 @@ const CameraPreview = ({photo, predictions}) => {
         }}
       />
     </View>
+
+	
   )
 }
+/*
+const ResultsScreen = ({navigation, photo}) => {
+
+	objectDetection = async () => {
+
+		let resized = await this.resize(photo);
+		let predictions = await this.predict(resized);
+		this.setState({ predictions: predictions.outputs[0].data.concepts });
+		console.log(this.state.predictions);  
+
+		//return predictions;
+
+	}
+
+	return(
+		<View style={styles.container}>
+			<Text> Results:</Text>
+			<Button style={styles.button}
+				title="Results"
+				onPress={alert(this.state.predictions)}
+			/>
+		</View>
+	)
+}*/
 
 
 
