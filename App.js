@@ -22,6 +22,7 @@ export default function App() {
 				<Stack.Screen name="Home" component={HomeScreen}/>
       			<Stack.Screen name="Scanner" component={EcoScannerScreen}/>
 				<Stack.Screen name="Camera" component={CameraScreen}/>
+				<Stack.Screen name="Results" component={ResultsScreen} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
@@ -139,7 +140,7 @@ const CameraScreen = ({navigation, route}) => {
 	return (
 		<View style={styles.camera}>
 		{previewVisible && capturedImage ? (
-			<CameraPreview photo={capturedImage} />
+			<CameraPreview photo={capturedImage} navigation={navigation} />
 		) : (
 			<Camera style={styles.camera} type={type} ref={(r) => { camera = r }}>
 				<View style={styles.buttonContainer}>
@@ -168,7 +169,7 @@ const CameraScreen = ({navigation, route}) => {
 }
 
 
-const CameraPreview = ({photo }) => {
+const CameraPreview = ({photo, navigation }) => {
 
   console.log('sdsfds', photo)
 
@@ -190,6 +191,10 @@ const CameraPreview = ({photo }) => {
           flex: 1
         }}
       />
+			<Button style={styles.button}
+				title="Go to results"
+				onPress={() => navigation.navigate('Results')}
+			/>
     </View>
 
 
