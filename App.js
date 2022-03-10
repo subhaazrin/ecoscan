@@ -9,7 +9,7 @@ import {Camera} from 'expo-camera';
 const Stack = createNativeStackNavigator();
 
 state = {
-	predictions: [],       
+	predictions: [],
 };
 
 let camera;
@@ -85,7 +85,7 @@ predict = async image => {
 
 
 const CameraScreen = ({navigation, route}) => {
-	const id = route.params.id;
+	// const id = route.params.id;
 	const [type, setType] = useState(Camera.Constants.Type.back);
 	const [previewVisible, setPreviewVisible] = useState(false)
 	const [capturedImage, setCapturedImage] = useState(null)
@@ -103,28 +103,28 @@ const CameraScreen = ({navigation, route}) => {
  }*/
 
  objectDetection = async () => {
-	
+
 	const photo = await camera.takePictureAsync()
 	console.log(photo)
 	 setPreviewVisible(true)
 	 // //setStartCamera(false)
 	 setCapturedImage(photo)
-	let resized = await this.resize(photo);
-	let predictions = await this.predict(resized);
-	this.setState({ predictions: predictions.outputs[0].data.concepts });
-	console.log(this.state.predictions); 
+	// let resized = await this.resize(photo);
+	// let predictions = await this.predict(resized);
+	// this.setState({ predictions: predictions.outputs[0].data.concepts });
+	// console.log(this.state.predictions);
 	return photo.uri;
 	//return predictions;
 
 }
 
- 	const Clarifai = require('clarifai');
+ 	// const Clarifai = require('clarifai');
+	//
+	// const app  = new Clarifai.App({
+  //   apiKey: 'c5c1b443f2ed41248f644a7dbeeb71a4'
+	// })
 
-	const app  = new Clarifai.App({
-    apiKey: 'c5c1b443f2ed41248f644a7dbeeb71a4'
-	})
-
-	process.nextTick = setImmediate;
+	// process.nextTick = setImmediate;
 
 
 
@@ -169,10 +169,10 @@ const CameraScreen = ({navigation, route}) => {
 
 
 const CameraPreview = ({photo }) => {
- 
+
   console.log('sdsfds', photo)
-  
-  //alert(predictions);  
+
+  //alert(predictions);
   //var predict  = predictions
 
   return (
@@ -192,33 +192,30 @@ const CameraPreview = ({photo }) => {
       />
     </View>
 
-	
+
   )
 }
-/*
+
 const ResultsScreen = ({navigation, photo}) => {
 
-	objectDetection = async () => {
-
-		let resized = await this.resize(photo);
-		let predictions = await this.predict(resized);
-		this.setState({ predictions: predictions.outputs[0].data.concepts });
-		console.log(this.state.predictions);  
-
-		//return predictions;
-
-	}
+	// objectDetection = async () => {
+	//
+	// 	let resized = await this.resize(photo);
+	// 	let predictions = await this.predict(resized);
+	// 	this.setState({ predictions: predictions.outputs[0].data.concepts });
+	// 	console.log(this.state.predictions);
+	//
+	// 	//return predictions;
+	//
+	// }
 
 	return(
 		<View style={styles.container}>
 			<Text> Results:</Text>
-			<Button style={styles.button}
-				title="Results"
-				onPress={alert(this.state.predictions)}
-			/>
+			<Text>Hello world</Text>
 		</View>
 	)
-}*/
+}
 
 
 
