@@ -164,8 +164,8 @@ const ResultsScreen = ({photo}) => {
 
 	const raw = JSON.stringify({
 		"user_app_id": {
-			"user_id": "", // @todo Fill in your user_id
-			"app_id": "", // @todo Fill in your app_id
+			"user_id": "r3k3q4ukhcbp", // @todo Fill in your user_id
+			"app_id": "027943ba177f491b9a51b5652a547d8a", // @todo Fill in your app_id
 		},
 		"inputs": [{
 			"data": {
@@ -179,7 +179,7 @@ const ResultsScreen = ({photo}) => {
 		method: "POST",
 		headers: {
 			"Accept": "application/json",
-			"Authorization": "Key YOUR_KEY_HERE", // @todo Fill in your API key
+			"Authorization": "Key c5c1b443f2ed41248f644a7dbeeb71a4", // @todo Fill in your API key
 		},
 		body: raw,
 	};
@@ -191,13 +191,14 @@ const ResultsScreen = ({photo}) => {
 			console.log(result.outputs);
 			const output = result.outputs[0];
 			if (output && output.data && output.data.concepts) {
-				let resultText = "Predicted concepts:\n";
+				//let resultText = "Predicted concepts:\n";
 				for (const concept of output.data.concepts) {
 					resultText += concept.name;
-					resultText += " ";
-					resultText += concept.value;
-					resultText += "\n";
+					//resultText += " ";
+					//resultText += concept.value;
+					//resultText += "\n";
 					setPrediction(resultText);
+					break;
 				}
 			} else {
 				setPrediction("No predictions returned");
