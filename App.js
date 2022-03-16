@@ -6,10 +6,40 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Camera} from 'expo-camera';
 
+/*
+//import {firestore} from 'firebase/firestore';
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+	apiKey: "AIzaSyDrl5xlUBDq1Hf15cIcTk1lsS1_7BSMjog",
+	authDomain: "ecolove-e9a1e.firebaseapp.com",
+	projectId: "ecolove-e9a1e",
+	storageBucket: "ecolove-e9a1e.appspot.com",
+	messagingSenderId: "347006923426",
+	appId: "1:347006923426:web:554903fc57ff0dbeb21dfb",
+	measurementId: "G-226FT6THYL"
+};
+  
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  app.firestore(); */
+
+
 const Stack = createNativeStackNavigator();
 
 state = {
 	predictions: [],
+	//foodList: [],
+    //selectedIndex: 0
 };
 
 let camera;
@@ -81,8 +111,10 @@ const CameraScreen = ({navigation, route}) => {
 	const { status } = Camera.requestCameraPermissionsAsync();
 
 	objectDetection = async () => {
+		
 		// I added the base64 flag for takePictureAsync to return the bytes of the
 		// image in base64 format: https://docs.expo.dev/versions/latest/sdk/camera/#takepictureasync
+		
 		const photo = await camera.takePictureAsync({ base64: true })
 		setPreviewVisible(true)
 		setCapturedImage(photo)
@@ -129,8 +161,39 @@ const CameraScreen = ({navigation, route}) => {
 
 const CameraPreview = ({photo, navigation }) => {
 	const [showResults, setShowResults] = useState(false);
-
-  return (
+	
+	/*
+	const DataAPI = async () => {
+		try {
+		  let data = await fetch(
+			"https://sheets.googleapis.com/v4/spreadsheets/1mYuIJeGecelt2Dal0n-YBViEhyCxB72xgv-AZDM6qSo/values/sheet1?valueRenderOption=FORMATTED_VALUE&key=AIzaSyAF7CF6yH4cqG51GS4pjzcMoDAaWH7LZRo"
+		  );
+		  let { values } = await data.json();
+		  let [, ...Data] = values.map((data) => data);
+		  return Data;
+		} catch {
+		  console.log("Error");
+		}
+	  };
+	  //export default DataAPI;
+	  const [value, setValue] = useState();
+	  useEffect(() => {
+		let data = async () => {
+		  setValue(await FetchData());
+		};
+		data();
+	  }, []);
+	  if (!value) {
+		return (
+		  <ActivityIndicator
+			size="large"
+			animating={true}
+			color="rgba(137,232,207,100)"
+		  />
+		);
+	  }*/
+ 
+ return (
     <View
       style={{
         backgroundColor: 'transparent',
@@ -151,7 +214,7 @@ const CameraPreview = ({photo, navigation }) => {
 					/>
 					<Button style={styles.button}
 						title="Go to results"
-						onPress={() => setShowResults(true)}
+						onPress={() => setShowResults(true) && this.DataAPI}
 					/>
 				</>
 			)}
@@ -160,6 +223,34 @@ const CameraPreview = ({photo, navigation }) => {
 }
 
 const ResultsScreen = ({photo}) => {
+	
+	/*
+	getFoods = async (foodsRetreived) =>{
+
+		var foodList = [];
+	  
+		var snapshot = await firebase.firestore()
+		  .collection('foodList')
+		  //.orderBy('createdAt')
+		  .get()
+	  
+		snapshot.forEach((doc) => {
+		  const foodItem = doc.data();
+		  foodItem.id = doc.id;
+		  foodList.push(foodItem);
+		});
+	  
+		foodsRetreived(foodList);
+
+	  }
+	  onFoodsReceived = (foodList) => {
+
+		this.setState(prevState => ({
+		foodList: prevState.foodList = foodList
+		}));
+  	
+	}*/
+
 	const [prediction, setPrediction] = useState("Waiting for results...")
 
 	const raw = JSON.stringify({
@@ -167,6 +258,8 @@ const ResultsScreen = ({photo}) => {
 			"user_id": "r3k3q4ukhcbp", // @todo Fill in your user_id
 			"app_id": "027943ba177f491b9a51b5652a547d8a", // @todo Fill in your app_id
 		},
+		//"model_id": "food-item-v1-recognition",
+		//"version-id": "dfebc169854e429086aceb8368662641",
 		"inputs": [{
 			"data": {
 				"image": {
@@ -175,6 +268,7 @@ const ResultsScreen = ({photo}) => {
 			},
 		}],
 	});
+
 	const requestOptions = {
 		method: "POST",
 		headers: {
@@ -184,22 +278,26 @@ const ResultsScreen = ({photo}) => {
 		body: raw,
 	};
 
+
 	fetch("https://api.clarifai.com/v2/models/aaa03c23b3724a16a56b629203edc62c/versions/aa9ca48295b37401f8af92ad1af0d91d/outputs", requestOptions)
+		//"https://api.clarifai.com/v2/models/food-item-v1-recognition/versions/dfebc169854e429086aceb8368662641/outputs", requestOptions)
 		.then(response => response.text())
 		.then(r => {
 			let result = JSON.parse(r, null, 2)
 			console.log(result.outputs);
 			const output = result.outputs[0];
 			if (output && output.data && output.data.concepts) {
-				//let resultText = "Predicted concepts:\n";
+				let resultText = "Predicted concepts:\n";
 				for (const concept of output.data.concepts) {
-					resultText += concept.name;
+					//resultText += concept.name;
 					//resultText += " ";
 					//resultText += concept.value;
 					//resultText += "\n";
+					resultText = "apple juice";
 					setPrediction(resultText);
 					break;
 				}
+
 			} else {
 				setPrediction("No predictions returned");
 			}
@@ -214,7 +312,9 @@ const ResultsScreen = ({photo}) => {
 	)
 }
 
+
 const styles = StyleSheet.create({
+
 	button: {flex: 1, alignItems: 'center', justifyContent: 'center'},
 	container: {
 		flex: 1,
