@@ -1,51 +1,109 @@
 
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground } from 'react-native';
+import { Animated, Image, StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Camera} from 'expo-camera';
-
-/*
-//import {firestore} from 'firebase/firestore';
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-	apiKey: "AIzaSyDrl5xlUBDq1Hf15cIcTk1lsS1_7BSMjog",
-	authDomain: "ecolove-e9a1e.firebaseapp.com",
-	projectId: "ecolove-e9a1e",
-	storageBucket: "ecolove-e9a1e.appspot.com",
-	messagingSenderId: "347006923426",
-	appId: "1:347006923426:web:554903fc57ff0dbeb21dfb",
-	measurementId: "G-226FT6THYL"
-};
-  
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  app.firestore(); */
-
+import Logo from './assets/title-logo.png'; 
 
 const Stack = createNativeStackNavigator();
 
 state = {
 	predictions: [],
-	//foodList: [],
-    //selectedIndex: 0
 };
+
+const foodList = new Map([
+	["PORK",	4.621484423],
+  ["CHICKEN", 3.262298031],
+  ["EGGS", 2.526441574],
+  ["BEEF", 23.80216746],
+  ["MILK",	1.36935455],
+  ["BUTTER", 12.66705193],
+  ["YOGURT",1.538219779],
+  ["CREAM", 6.469371749],
+  ["HARD CHEESE", 12.56486777],
+  ["DESSERT CHEESE", 8.363223794],
+  ["CREME FRAICHE", 5.710089322],
+  ["MILK POWDER", 11.7851491],
+  ["SALMON", 6.065231518],
+  ["COD", 7.29340867],
+  ["ROE",	2.005864863],
+  ["HERRING" ,	1.137124466],
+  ["MACKEREL" , 1.035272146],
+  ["SAITHE" , 4.900359303],
+  ["NORTHERN PRAWN" , 14.44294447],
+  ["ALASKA POLLOCK" , 3.376893088],
+  ["RAINBOW TROUT" , 6.10321773],
+  ["PANGASIUS"	, 13.86612846],
+  ["EUROPEAN PLAICE" ,	23.28046736],
+  ["HOKI" ,	7.148932597],
+  ["WHEAT"	, 1.176855587],
+  ["RYE" , 1.062139839],
+  ["BARLEY" , 1.149947423],
+  ["OATS" , 1.184860243],
+  ["RICE" , 3.579564355],
+  ["RAPESEED OIL" , 2.373003323],
+  ["OLIVE OIL" , 4.044846694],
+  ["SUGAR"	, 1.523165461],
+  ["TOMATO" ,	1.493989349],
+  ["CUCUMBER" , 0.734100042],
+  ["BELL PEPPER", 2.333728229] ,
+  ["ICEBERG LETTUCE", 0.322647658],
+  ["POTATO" , 0.375638513],
+  ["CARROT" , 0.298370864],
+  ["ONION", 0.381612481],
+  ["LEEK", 0.395561437],
+  ["BROCCOLI", 0.627874827],
+  ["WHITE CABBAGE" , 0.359012096],
+  ["CAULIFLOWER" , 0.531403532],
+  ["PEAS" , 0.617573225],
+  ["BEANS" , 1.159890391],
+  ["APPLE", 0.36967267],
+  ["PEAR" , 0.399295468],
+  ["MELON", 2.141240029],
+  ["BANANA", 0.67261454],
+  ["ORANGE", 0.728614353],
+  ["LEMON"	, 0.45637194],
+  ["AVOCADO" , 1.093448343],
+  ["KIWIFRUIT" , 0.632535203],
+  ["STRAWBERRY", 0.73858763],
+  ["RASPBERRY", 0.759482],
+  ["COCOA POWDER", 4.437154929],
+  ["COCOA BUTTER",	8.786018448],
+  ["COFFEE" , 6.406229764],
+  ["PASTA"	, 1.76571932],
+  ["BUNS" , 1.447764517],
+  ["BISCUITS" , 1.104275024],
+  ["PASTRY" , 1.409857661],
+  ["RUSKS" , 1.433832349],
+  ["WHEAT BREAD" , 1.02194756],
+  ["WHEAT-RYE BREAD" , 1.043072702],
+  ["CRISP BREAD" , 1.114347356],
+  ["FOLLOW-UP FORMULA" , 3.658963493],
+  ["MARGARINE", 2.417283753],
+  ["LOW FAT MARGARINE", 1.272289192],
+  ["COCOA DRINK POWDER" , 2.303386124],
+  ["SODA" , 0.40582548],
+  ["CIDER" , 0.477932217],
+  ["BEER " , 0.461326355],
+  ["MINERAL WATER"	, 0.277240578],
+  ["JUICE"	, 1.239805883],
+  ["ORANGE JUICE" , 1.687789075],
+  ["APPLE JUICE" , 0.791822691],
+  ["SQUASH DRINK" , 1.27361569],
+  ["STRAWBERRY SQUASH DRINK" , 1.244180357],
+  ["RASPBERRY SQUASH DRINK" , 1.303051023],
+  ["CHOCOLATE"	, 6.856879104],
+  ["POTATO CHIPS"	, 2.89291368],
+  ["ICE CREAM"	, 4.281456556],
+  ]);
 
 let camera;
 
 export default function App() {
 	return(
+
 		<NavigationContainer>
 			<Stack.Navigator>
 				<Stack.Screen name="Start" component={StartScreen}/>
@@ -60,11 +118,12 @@ export default function App() {
 const StartScreen = ({navigation}) => {
 	return(
 		<View style={styles.container}>
-			<Text> Welcome to EcoLove!</Text>
-			<Button style={styles.button}
-				title="Start"
-				onPress={() => navigation.navigate('Home')}
-			/>
+			<Image source={Logo} style={styles.Logo} /> 
+			
+			<TouchableOpacity style={styles.button1}
+				onPress={() => navigation.navigate('Home')}>
+				<Text style={styles.button1Text}>Start</Text>
+				</TouchableOpacity>
 		</View>
 	);
 }
@@ -72,11 +131,12 @@ const StartScreen = ({navigation}) => {
 const HomeScreen = ({navigation}) => {
 	return(
 		<View style={styles.container}>
-			<Text> Welcome Back!</Text>
-			<Button style={styles.button}
-				title="Proceed to EcoScanner!"
-				onPress={() => navigation.navigate('Scanner')}
-			/>
+			<Text style={styles.title}> Ecoscanner </Text>
+			<Text style={styles.subtitle}> Estimate your carbonfootprint with a simple scan! </Text>
+			<TouchableOpacity style={styles.button}
+				onPress={() => navigation.navigate('Scanner')}>
+				<Text style={styles.button1Text}>Proceed to Scanner!</Text>
+				</TouchableOpacity>
 		</View>
 	);
 }
@@ -161,37 +221,6 @@ const CameraScreen = ({navigation, route}) => {
 
 const CameraPreview = ({photo, navigation }) => {
 	const [showResults, setShowResults] = useState(false);
-	
-	/*
-	const DataAPI = async () => {
-		try {
-		  let data = await fetch(
-			"https://sheets.googleapis.com/v4/spreadsheets/1mYuIJeGecelt2Dal0n-YBViEhyCxB72xgv-AZDM6qSo/values/sheet1?valueRenderOption=FORMATTED_VALUE&key=AIzaSyAF7CF6yH4cqG51GS4pjzcMoDAaWH7LZRo"
-		  );
-		  let { values } = await data.json();
-		  let [, ...Data] = values.map((data) => data);
-		  return Data;
-		} catch {
-		  console.log("Error");
-		}
-	  };
-	  //export default DataAPI;
-	  const [value, setValue] = useState();
-	  useEffect(() => {
-		let data = async () => {
-		  setValue(await FetchData());
-		};
-		data();
-	  }, []);
-	  if (!value) {
-		return (
-		  <ActivityIndicator
-			size="large"
-			animating={true}
-			color="rgba(137,232,207,100)"
-		  />
-		);
-	  }*/
  
  return (
     <View
@@ -214,7 +243,7 @@ const CameraPreview = ({photo, navigation }) => {
 					/>
 					<Button style={styles.button}
 						title="Go to results"
-						onPress={() => setShowResults(true) && this.DataAPI}
+						onPress={() => setShowResults(true)}
 					/>
 				</>
 			)}
@@ -222,35 +251,9 @@ const CameraPreview = ({photo, navigation }) => {
   )
 }
 
+
 const ResultsScreen = ({photo}) => {
 	
-	/*
-	getFoods = async (foodsRetreived) =>{
-
-		var foodList = [];
-	  
-		var snapshot = await firebase.firestore()
-		  .collection('foodList')
-		  //.orderBy('createdAt')
-		  .get()
-	  
-		snapshot.forEach((doc) => {
-		  const foodItem = doc.data();
-		  foodItem.id = doc.id;
-		  foodList.push(foodItem);
-		});
-	  
-		foodsRetreived(foodList);
-
-	  }
-	  onFoodsReceived = (foodList) => {
-
-		this.setState(prevState => ({
-		foodList: prevState.foodList = foodList
-		}));
-  	
-	}*/
-
 	const [prediction, setPrediction] = useState("Waiting for results...")
 
 	const raw = JSON.stringify({
@@ -279,24 +282,29 @@ const ResultsScreen = ({photo}) => {
 	};
 
 
-	fetch("https://api.clarifai.com/v2/models/aaa03c23b3724a16a56b629203edc62c/versions/aa9ca48295b37401f8af92ad1af0d91d/outputs", requestOptions)
-		//"https://api.clarifai.com/v2/models/food-item-v1-recognition/versions/dfebc169854e429086aceb8368662641/outputs", requestOptions)
+	fetch("https://api.clarifai.com/v2/models/food-item-v1-recognition/versions/dfebc169854e429086aceb8368662641/outputs", requestOptions)
 		.then(response => response.text())
 		.then(r => {
 			let result = JSON.parse(r, null, 2)
 			console.log(result.outputs);
 			const output = result.outputs[0];
 			if (output && output.data && output.data.concepts) {
-				let resultText = "Predicted concepts:\n";
+				let resultText= "";
+				let ecoValue = 0;
+				
 				for (const concept of output.data.concepts) {
-					//resultText += concept.name;
+					
+					resultText += concept.name;
 					//resultText += " ";
 					//resultText += concept.value;
 					//resultText += "\n";
-					resultText = "apple juice";
-					setPrediction(resultText);
+					//resultText = "apple juice";
+					
+					ecoValue = foodList.get(resultText.toUpperCase());
+					setPrediction(resultText + ": " + ecoValue);
 					break;
 				}
+				
 
 			} else {
 				setPrediction("No predictions returned");
@@ -315,11 +323,33 @@ const ResultsScreen = ({photo}) => {
 
 const styles = StyleSheet.create({
 
-	button: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+	button: {
+		flex: 1, 
+		alignItems: 'center', 
+		justifyContent: 'center'
+	},
+	
+	button1:{
+		backgroundColor: '#F8F8ED',
+		marginTop: 0,
+    	padding: 20,
+		minWidth: 150,
+    	borderRadius: 20,
+		borderWidth:2,
+      	borderColor:'#3E7F22',
+	},
+
+	Logo: {
+		height: 300,
+		width: 300,
+		alignItems: 'center',
+		marginTop: 160,
+	},
+
 	container: {
 		flex: 1,
 		alignItems: 'center',
-		margin: 120,
+		backgroundColor: '#D5E7B8',
 	  },
 	  camera: {
 		flex: 1,
@@ -339,4 +369,16 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		color: 'white',
 	  },
+	  title:{
+		fontSize: 45,
+		color: 'white',
+	  },
+	  subtitle:{
+		fontSize: 18,
+		color: 'white',
+	  },
+	  button1Text: {
+		fontSize: 20,
+		color: '#3E7F22',
+	  }
 });
