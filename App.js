@@ -14,7 +14,7 @@ state = {
 };
 
 const foodList = new Map([
-	["PORK",	4.621484423],
+  ["PORK",	4.621484423],
   ["CHICKEN", 3.262298031],
   ["EGGS", 2.526441574],
   ["BEEF", 23.80216746],
@@ -133,7 +133,7 @@ const HomeScreen = ({navigation}) => {
 		<View style={styles.container}>
 			<Text style={styles.title}> Ecoscanner </Text>
 			<Text style={styles.subtitle}> Estimate your carbonfootprint with a simple scan! </Text>
-			<TouchableOpacity style={styles.button}
+			<TouchableOpacity style={styles.button1}
 				onPress={() => navigation.navigate('Scanner')}>
 				<Text style={styles.button1Text}>Proceed to Scanner!</Text>
 				</TouchableOpacity>
@@ -337,13 +337,15 @@ const styles = StyleSheet.create({
     	borderRadius: 20,
 		borderWidth:2,
       	borderColor:'#3E7F22',
+		alignItems: 'center', 
+		justifyContent: 'center'
 	},
 
 	Logo: {
 		height: 300,
 		width: 300,
 		alignItems: 'center',
-		marginTop: 160,
+		marginTop: 0,
 	},
 
 	container: {
