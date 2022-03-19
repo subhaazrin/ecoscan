@@ -21,7 +21,7 @@
     "googleapis": "^97.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-native": "^0.67.4",
+    "react-native": "^0.61.4",
     "react-native-elements": "^3.4.2",
     "react-native-paper": "^4.11.2",
     "react-native-safe-area-context": "3.3.2",
