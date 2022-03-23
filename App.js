@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
 	
 	button1:{
 		backgroundColor: '#F8F8ED',
-		marginTop: 0,
+		marginTop: 30,
     	padding: 20,
 		minWidth: 150,
     	borderRadius: 20,
@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
 		height: 300,
 		width: 300,
 		alignItems: 'center',
-		marginTop: 0,
+		marginTop: 70,
 	},
 
 	container: {
