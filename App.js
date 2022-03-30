@@ -6,6 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Camera} from 'expo-camera';
 import Logo from './assets/title-logo.png'; 
+import Score from './assets/ecoScore.png';
+import Cam from './assets/photo-camera-interface-symbol-for-button.png';
 
 const Stack = createNativeStackNavigator();
 
@@ -108,7 +110,6 @@ export default function App() {
 			<Stack.Navigator>
 				<Stack.Screen name="Start" component={StartScreen}/>
 				<Stack.Screen name="Home" component={HomeScreen}/>
-      			<Stack.Screen name="Scanner" component={EcoScannerScreen}/>
 				<Stack.Screen name="Camera" component={CameraScreen}/>
 			</Stack.Navigator>
 		</NavigationContainer>
@@ -131,25 +132,13 @@ const StartScreen = ({navigation}) => {
 const HomeScreen = ({navigation}) => {
 	return(
 		<View style={styles.container}>
-			<Text style={styles.title}> Ecoscanner </Text>
-			<Text style={styles.subtitle}> Estimate your carbonfootprint with a simple scan! </Text>
-			<TouchableOpacity style={styles.button1}
-				onPress={() => navigation.navigate('Scanner')}>
+			<Text style={styles.title1}> Welcome to EcoScanner! </Text>
+			<Text style={styles.subtitle}> Estimate your food carbonfootprint with a simple scan! </Text>
+			<TouchableOpacity style={styles.button2}
+				onPress={() => navigation.navigate('Camera')}>
+			<Image source={Cam} style={styles.Cam} /> 
 				<Text style={styles.button1Text}>Proceed to Scanner!</Text>
 				</TouchableOpacity>
-		</View>
-	);
-}
-
-const EcoScannerScreen = ({navigation}) => {
-	return(
-		<View style={styles.container}>
-			<Text> Scanner Time!</Text>
-			<Button style={styles.button}
-				title="Proceed to Camera!"
-				//onPress={__startCamera}
-				onPress={() => navigation.navigate('Camera', {id: 23, name: 'SubhaMairah' })}
-			/>
 		</View>
 	);
 }
@@ -197,7 +186,7 @@ const CameraScreen = ({navigation, route}) => {
 				<Camera style={styles.camera} type={type} ref={(r) => { camera = r }}>
 					<View style={styles.buttonContainer}>
 					<TouchableOpacity
-						style={styles.button}
+						style={styles.button3}
 						onPress={() => {
 						setType(
 							type === Camera.Constants.Type.back
@@ -208,7 +197,7 @@ const CameraScreen = ({navigation, route}) => {
 						<Text style={styles.text}> Flip </Text>
 					</TouchableOpacity>
 					<TouchableOpacity
-						style={styles.button}
+						style={styles.button3}
 						onPress={this.objectDetection}>
 						<Text style={styles.text}> Take Photo </Text>
 					</TouchableOpacity>
@@ -241,10 +230,17 @@ const CameraPreview = ({photo, navigation }) => {
 							flex: 1
 						}}
 					/>
-					<Button style={styles.button}
-						title="Go to results"
-						onPress={() => setShowResults(true)}
-					/>
+					<TouchableOpacity style={styles.button3} 
+					onPress={() => navigation.navigate('Home')}>
+						<Text style={styles.text}> Retake </Text>
+					</TouchableOpacity>
+					
+					<TouchableOpacity style={styles.button3}
+					onPress={() => setShowResults(true)}>
+					<Text style={styles.text}> Submit </Text>						
+					</TouchableOpacity>
+					
+					
 				</>
 			)}
     </View>
@@ -290,7 +286,9 @@ const ResultsScreen = ({photo}) => {
 			const output = result.outputs[0];
 			if (output && output.data && output.data.concepts) {
 				let resultText= "";
-				let ecoValue = 0;
+				let ecoValue = 0.0;
+				const ecoScore = "";;
+				let mileage = 0;
 				
 				for (const concept of output.data.concepts) {
 					
@@ -301,10 +299,30 @@ const ResultsScreen = ({photo}) => {
 					//resultText = "apple juice";
 					
 					ecoValue = foodList.get(resultText.toUpperCase());
-					setPrediction(resultText + ": " + ecoValue);
+					if(ecoValue>0 && ecoValue<1.2){
+						ecoScore = "5";
+					} else if(ecoValue>1.2 && ecoValue<3.4){
+						ecoScore = "4";
+					} else if(ecoValue>3.4 && ecoValue<6.7){
+						ecoScore = "3";
+					} else if(ecoValue>6.7 && ecoValue<9){
+						ecoScore = "2";
+					} else{
+						ecoScore= "1";
+					}
+
+					mileage = 2.5*ecoValue;
+					
+
+					setPrediction(resultText);
+					/*
+					Results:
+					Chocolate
+
+					*/ 
+
 					break;
 				}
-				
 
 			} else {
 				setPrediction("No predictions returned");
@@ -314,19 +332,38 @@ const ResultsScreen = ({photo}) => {
 
 	return(
 		<View style={styles.container}>
-			<Text> Results:</Text>
-			<Text>{prediction}</Text>
+			<Text style={{fontSize: 10, textAlign: 'center'}}>{prediction}</Text>
+			<Text style={{fontSize: 15, textAlign: 'center'}}>EcoScore:</Text>
+			<ImageBackground source={Score} style={styles.Logo}>
+			<View style={styles.textView}>
+			{/*<Text style = {{fontSize: 20, textAlign: 'center'}}>{ecoScore}</Text>*/}
+			</View>
+			</ImageBackground> 
+
 		</View>
 	)
 }
 
 
 const styles = StyleSheet.create({
-
+	res:{
+		textAlign: 'center',
+		fontSize: 30,
+		flex: 1,
+	},
 	button: {
 		flex: 1, 
 		alignItems: 'center', 
 		justifyContent: 'center'
+	},
+	textView: {
+		position: 'absolute',
+		justifyContent: 'center',
+		alignItems: 'center',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
 	},
 	
 	button1:{
@@ -340,6 +377,29 @@ const styles = StyleSheet.create({
 		alignItems: 'center', 
 		justifyContent: 'center'
 	},
+	button2:{
+		backgroundColor: 'rgba(118, 152, 113, 1)',
+		marginTop: 30,
+    	padding: 20,
+		minWidth: 150,
+    	borderRadius: 20,
+		borderWidth:2,
+      	borderColor:'#3E7F22',
+		alignItems: 'center', 
+		justifyContent: 'center'
+	},
+	button3:{
+		backgroundColor: '#F8F8ED',
+    	padding: 10,
+		minWidth: 150,
+    	borderRadius: 20,
+		borderWidth:2,
+      	borderColor:'#3E7F22',
+		flex: 0.1,
+		alignSelf: 'flex-end',
+		alignItems: 'center',
+		marginLeft:17,
+	},
 
 	Logo: {
 		height: 300,
@@ -348,6 +408,11 @@ const styles = StyleSheet.create({
 		marginTop: 70,
 	},
 
+	Cam: {
+		height: 300,
+		width: 300,
+		alignItems: 'center',
+	},
 	container: {
 		flex: 1,
 		alignItems: 'center',
@@ -369,15 +434,22 @@ const styles = StyleSheet.create({
 	  },
 	  text: {
 		fontSize: 18,
-		color: 'white',
+		color: 'rgba(118, 152, 113, 1)',
 	  },
 	  title:{
 		fontSize: 45,
 		color: 'white',
 	  },
+	  title1:{
+		fontSize: 40,
+		color: 'rgba(118, 152, 113, 1)',
+		marginTop: 30,
+	  },
 	  subtitle:{
 		fontSize: 18,
 		color: 'white',
+		marginTop: 20,
+		textAlign: 'center',
 	  },
 	  button1Text: {
 		fontSize: 20,
