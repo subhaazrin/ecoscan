@@ -1,13 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Animated, Image, StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground } from 'react-native';
+import { Animated, Image, StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground, ScrollView, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Camera} from 'expo-camera';
 import Logo from './assets/title-logo.png'; 
 import Score from './assets/ecoScore.png';
 import Cam from './assets/photo-camera-interface-symbol-for-button.png';
+import Car from './assets/car.png';
+import { RadioButton } from 'react-native-paper';
 
 const Stack = createNativeStackNavigator();
 
@@ -111,6 +113,7 @@ export default function App() {
 				<Stack.Screen name="Start" component={StartScreen}/>
 				<Stack.Screen name="Home" component={HomeScreen}/>
 				<Stack.Screen name="Camera" component={CameraScreen}/>
+				<Stack.Screen name="Survey" component={SurveyScreen}/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
@@ -125,6 +128,11 @@ const StartScreen = ({navigation}) => {
 				onPress={() => navigation.navigate('Home')}>
 				<Text style={styles.button1Text}>Start</Text>
 				</TouchableOpacity>
+
+				<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>		
+				<Text style={styles.text}> Not what you scanned? </Text>				
+			</TouchableOpacity>
+
 		</View>
 	);
 }
@@ -142,6 +150,62 @@ const HomeScreen = ({navigation}) => {
 		</View>
 	);
 }
+
+
+const SurveyScreen = ({navigation}) => {
+	
+	const [value, setValue] = React.useState('');
+
+	return(
+		<View style={styles.container}>
+			<Text>Survey moment:</Text>
+			
+			<ScrollView style={styles.container}>
+			
+			<Text>Survey moment:</Text>
+
+			<Text>Which category does the item fall under?</Text>
+			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+			<RadioButton.Item label="Fruits/Vegetables" value="first" onPress={this.toggleCancel()}/>
+			<RadioButton.Item label="Animal Products" value="second" />
+			<RadioButton.Item label="Dairy Products" value="third" />
+			</RadioButton.Group>
+
+			<Text>Is the item grown or produced locally?</Text>
+			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+			<RadioButton.Item label="Yes" value="local" />
+			<RadioButton.Item label="No" value="nonlocal" />
+			</RadioButton.Group>
+
+			<Text>Is it red meat?</Text>
+			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+			<RadioButton.Item label="Yes" value="redmeat" />
+			<RadioButton.Item label="No" value="notredmeat" />
+			</RadioButton.Group>
+
+			<Text>Is it dairy free or plant-based?</Text>
+			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+			<RadioButton.Item label="Yes" value="dairyfree" />
+			<RadioButton.Item label="No" value="notdairyfree" />
+			</RadioButton.Group>
+
+			<Text>Does the product claim no artificial colours or flavours?</Text>
+			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+			<RadioButton.Item label="Yes" value="noartificialcolours" />
+			<RadioButton.Item label="No" value="hasartificialcolours" />
+			</RadioButton.Group>
+			
+			
+			<TouchableOpacity style={styles.button1}
+				onPress={() => navigation.navigate('Home')}>
+				<Text style={styles.button1Text}>Start</Text>
+				</TouchableOpacity>
+     		 </ScrollView>
+			
+		</View>
+	);
+}
+
 
 resize = async photo => {
 	let manipulatedImage = await ImageManipulator.manipulateAsync(
@@ -248,7 +312,12 @@ const CameraPreview = ({photo, navigation }) => {
 }
 
 
-const ResultsScreen = ({photo}) => {
+let ecoValue = 0;
+let ecoScore = 0;
+let mileage = 0;
+let bgColor = '';
+
+const ResultsScreen = ({navigation, photo}) => {
 	
 	const [prediction, setPrediction] = useState("Waiting for results...")
 
@@ -277,7 +346,6 @@ const ResultsScreen = ({photo}) => {
 		body: raw,
 	};
 
-
 	fetch("https://api.clarifai.com/v2/models/food-item-v1-recognition/versions/dfebc169854e429086aceb8368662641/outputs", requestOptions)
 		.then(response => response.text())
 		.then(r => {
@@ -286,9 +354,7 @@ const ResultsScreen = ({photo}) => {
 			const output = result.outputs[0];
 			if (output && output.data && output.data.concepts) {
 				let resultText= "";
-				let ecoValue = 0.0;
-				const ecoScore = "";;
-				let mileage = 0;
+				
 				
 				for (const concept of output.data.concepts) {
 					
@@ -298,22 +364,27 @@ const ResultsScreen = ({photo}) => {
 					//resultText += "\n";
 					//resultText = "apple juice";
 					
+					
 					ecoValue = foodList.get(resultText.toUpperCase());
-					if(ecoValue>0 && ecoValue<1.2){
-						ecoScore = "5";
+					if(ecoValue>0.0 && ecoValue<1.2){
+						ecoScore = 5;
+						bgColor = '#0dd650';
 					} else if(ecoValue>1.2 && ecoValue<3.4){
-						ecoScore = "4";
+						ecoScore = 4;
+						bgColor = '#86d60d';
 					} else if(ecoValue>3.4 && ecoValue<6.7){
-						ecoScore = "3";
+						ecoScore = 3;
+						bgColor = '#d6bf0d';
 					} else if(ecoValue>6.7 && ecoValue<9){
-						ecoScore = "2";
+						ecoScore = 2;
+						bgColor = '#d67f0d';
 					} else{
-						ecoScore= "1";
+						ecoScore= 1;
+						bgColor = '#d61e0d';
 					}
 
-					mileage = 2.5*ecoValue;
+					mileage = (2.5*ecoValue).toFixed(2);
 					
-
 					setPrediction(resultText);
 					/*
 					Results:
@@ -332,17 +403,32 @@ const ResultsScreen = ({photo}) => {
 
 	return(
 		<View style={styles.container}>
-			<Text style={{fontSize: 10, textAlign: 'center'}}>{prediction}</Text>
-			<Text style={{fontSize: 15, textAlign: 'center'}}>EcoScore:</Text>
-			<ImageBackground source={Score} style={styles.Logo}>
-			<View style={styles.textView}>
-			{/*<Text style = {{fontSize: 20, textAlign: 'center'}}>{ecoScore}</Text>*/}
-			</View>
+			<Text style={{fontSize: 40, bold: {fontWeight: 'bold'}, textAlign: 'center', marginTop:20}}>Results:</Text>
+			
+			
+			<View style={{backgroundColor: bgColor, borderRadius: 9, height: 450, width: 350, alignItems: 'center', marginTop:40}}>
+			<Text style={{textTransform: 'capitalize', fontSize: 40, textAlign: 'center', marginTop: 15,}}>{prediction}</Text>
+			<Text style={{fontSize: 30, textAlign: 'center', marginTop: 10,}}>EcoScore:</Text>
+			<ImageBackground source={Score} style={styles.Logo2}>
+				<View style={styles.textView}>
+				<Text style = {{fontSize: 65, textAlign: 'center'}}>{ecoScore}</Text>
+				</View>
 			</ImageBackground> 
+			<Text style={{fontSize: 25, flexDirection:'row',  flexWrap:'wrap', marginTop: 10,}}>Equivalent to:</Text> 
+			<Image source={Car} style={styles.carLogo} /> 
+			<Text style={{fontSize: 25, textAlign: 'center', flexWrap:'wrap',  marginTop: 10,}}>{mileage} KMs</Text>			
+			</View>
+
+			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>		
+				<Text style={styles.text}> Not what you scanned? </Text>				
+			</TouchableOpacity>
+			
 
 		</View>
+		
 	)
 }
+
 
 
 const styles = StyleSheet.create({
@@ -400,12 +486,40 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginLeft:17,
 	},
+    
+	button4:{
+		backgroundColor: '#F8F8ED',
+    	padding: 15,
+		minWidth: 200,
+    	borderRadius: 20,
+		borderWidth:2,
+      	borderColor:'#3E7F22',
+		alignSelf: 'flex-end',
+		alignItems: 'center',
+		marginTop: 20,
+		marginRight: 80,
+	},
 
 	Logo: {
 		height: 300,
 		width: 300,
 		alignItems: 'center',
 		marginTop: 70,
+	},
+
+	Logo2: {
+		height: 150,
+		width: 150,
+		alignItems: 'center',
+		marginTop: 20,
+	},
+
+	carLogo:{
+		height: 50,
+		width: 65,
+		flexDirection:'row', 
+		flexWrap:'wrap',
+		marginTop: 10,
 	},
 
 	Cam: {
