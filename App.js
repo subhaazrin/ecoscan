@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Animated, Image, StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground, ScrollView, SafeAreaView } from 'react-native';
+import { Modal,  Alert, Pressable, Image, StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground, ScrollView, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Camera} from 'expo-camera';
@@ -110,10 +110,10 @@ export default function App() {
 
 		<NavigationContainer>
 			<Stack.Navigator>
-				<Stack.Screen name="Start" component={StartScreen}/>
-				<Stack.Screen name="Home" component={HomeScreen}/>
-				<Stack.Screen name="Camera" component={CameraScreen}/>
-				<Stack.Screen name="Survey" component={SurveyScreen}/>
+				<Stack.Screen name="Start" component={StartScreen} options={{title: '', headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}}/>
+				<Stack.Screen name="Home" component={HomeScreen}  options={{title: '', headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}}/>
+				<Stack.Screen name="Camera" component={CameraScreen} options={{title: '',  headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}}/>
+				<Stack.Screen name="Survey" component={SurveyScreen} options={{title: '',  headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
@@ -141,11 +141,11 @@ const HomeScreen = ({navigation}) => {
 	return(
 		<View style={styles.container}>
 			<Text style={styles.title1}> Welcome to EcoScanner! </Text>
-			<Text style={styles.subtitle}> Estimate your food carbonfootprint with a simple scan! </Text>
+			<Text style={styles.text7}> Estimate your food carbonfootprint with a simple scan! </Text>
 			<TouchableOpacity style={styles.button2}
 				onPress={() => navigation.navigate('Camera')}>
 			<Image source={Cam} style={styles.Cam} /> 
-				<Text style={styles.button1Text}>Proceed to Scanner!</Text>
+				<Text style={styles.text9}>Proceed to Scanner!</Text>
 				</TouchableOpacity>
 		</View>
 	);
@@ -281,7 +281,7 @@ const CameraPreview = ({photo, navigation }) => {
         backgroundColor: 'transparent',
         flex: 1,
         width: '100%',
-        height: '100%'
+        height: '100%',
       }}
     >
 			{showResults ? (
@@ -294,15 +294,18 @@ const CameraPreview = ({photo, navigation }) => {
 							flex: 1
 						}}
 					/>
-					<TouchableOpacity style={styles.button3} 
+
+					<View style={{flexDirection: 'row'}}>
+					<TouchableOpacity style={styles.button33} 
 					onPress={() => navigation.navigate('Home')}>
 						<Text style={styles.text}> Retake </Text>
 					</TouchableOpacity>
 					
-					<TouchableOpacity style={styles.button3}
+					<TouchableOpacity style={styles.button34}
 					onPress={() => setShowResults(true)}>
 					<Text style={styles.text}> Submit </Text>						
 					</TouchableOpacity>
+					</View>
 					
 					
 				</>
@@ -313,11 +316,13 @@ const CameraPreview = ({photo, navigation }) => {
 
 
 let ecoValue = 0;
-let ecoScore = 0;
+let ecoScore = '';
 let mileage = 0;
 let bgColor = '';
 
 const ResultsScreen = ({navigation, photo}) => {
+
+	const [modalVisible, setModalVisible] = useState(false);
 	
 	const [prediction, setPrediction] = useState("Waiting for results...")
 
@@ -367,19 +372,19 @@ const ResultsScreen = ({navigation, photo}) => {
 					
 					ecoValue = foodList.get(resultText.toUpperCase());
 					if(ecoValue>0.0 && ecoValue<1.2){
-						ecoScore = 5;
+						ecoScore = '5/5';
 						bgColor = '#0dd650';
 					} else if(ecoValue>1.2 && ecoValue<3.4){
-						ecoScore = 4;
+						ecoScore = '4/5';
 						bgColor = '#86d60d';
 					} else if(ecoValue>3.4 && ecoValue<6.7){
-						ecoScore = 3;
+						ecoScore = '3/5';
 						bgColor = '#d6bf0d';
 					} else if(ecoValue>6.7 && ecoValue<9){
-						ecoScore = 2;
+						ecoScore = '2/5';
 						bgColor = '#d67f0d';
 					} else{
-						ecoScore= 1;
+						ecoScore= '1/5';
 						bgColor = '#d61e0d';
 					}
 
@@ -403,25 +408,75 @@ const ResultsScreen = ({navigation, photo}) => {
 
 	return(
 		<View style={styles.container}>
-			<Text style={{fontSize: 40, bold: {fontWeight: 'bold'}, textAlign: 'center', marginTop:20}}>Results:</Text>
+			<Text style={styles.title2}>Results:</Text>
 			
 			
-			<View style={{backgroundColor: bgColor, borderRadius: 9, height: 450, width: 350, alignItems: 'center', marginTop:40}}>
-			<Text style={{textTransform: 'capitalize', fontSize: 40, textAlign: 'center', marginTop: 15,}}>{prediction}</Text>
-			<Text style={{fontSize: 30, textAlign: 'center', marginTop: 10,}}>EcoScore:</Text>
+			<View style={{backgroundColor: bgColor, borderRadius: 9, height: 500, width: 350, alignItems: 'center', marginTop:35}}>
+			
+			<Text style={{textTransform: 'capitalize', fontSize: 35, textAlign: 'center', marginTop:25, fontWeight: 'bold'}}>{prediction}</Text>
+			<Text style={{fontSize: 25, textAlign: 'center', marginTop: 25, fontWeight: 'bold',}}>EcoScore:</Text>
+			
 			<ImageBackground source={Score} style={styles.Logo2}>
 				<View style={styles.textView}>
-				<Text style = {{fontSize: 65, textAlign: 'center'}}>{ecoScore}</Text>
+				<Text style = {{fontSize: 60, textAlign: 'center',}}>{ecoScore}</Text>
 				</View>
 			</ImageBackground> 
-			<Text style={{fontSize: 25, flexDirection:'row',  flexWrap:'wrap', marginTop: 10,}}>Equivalent to:</Text> 
+
+			<Text style={{fontSize: 20, flexDirection:'row',  flexWrap:'wrap', marginTop: 20,}}>Equivalent to:</Text> 
 			<Image source={Car} style={styles.carLogo} /> 
-			<Text style={{fontSize: 25, textAlign: 'center', flexWrap:'wrap',  marginTop: 10,}}>{mileage} KMs</Text>			
+			<Text style={{fontSize: 20, textAlign: 'center', flexWrap:'wrap',  marginTop: 10,}}>{mileage} KMs</Text>			
+			
+			<Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+	    <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.text3}>Learn more about your EcoSore!</Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text4}>What is your EcoScore?</Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text5}>The EcoScore is a rating from 1 to 5 that determines how eco-friendly the food you are eating is. The score is determined based on carbon emissions from the manufacturing process.
+			</Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text4}>Looking to improve your score?</Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text5}>Here are some tips on how to reduce your overall carbon footprint:</Text>
+			<Text style={styles.text6}>- shop local (expand on this)</Text>
+			<Text style={styles.text6}>- shop organic (expand on this)</Text>
+			<Text style={styles.text6}>- avoid plastic packaging (expand on this)</Text>
+			<Text style={styles.text}></Text>
+			
+			<Text style={styles.text4}>What is your mileage?</Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text5}>The "equivalent to" feature compares the carbon emissions emitted in the manufacturing process 
+			for your food of choice and displays it in carbon emissions per mile for a care, for comparison.
+			</Text>
+            <Pressable
+              style={[styles.button5, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.text8}>Back</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      <Pressable style={[styles.button5, styles.buttonOpen]} onPress={() => setModalVisible(true)}>
+        <Text style={styles.text2}>Learn more about your EcoScore!</Text>
+      </Pressable>		
+
 			</View>
+
 
 			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>		
 				<Text style={styles.text}> Not what you scanned? </Text>				
 			</TouchableOpacity>
+
+			
 			
 
 		</View>
@@ -456,10 +511,10 @@ const styles = StyleSheet.create({
 		backgroundColor: '#F8F8ED',
 		marginTop: 30,
     	padding: 20,
-		minWidth: 150,
-    	borderRadius: 20,
+		minWidth: 125,
+    	borderRadius: 30,
 		borderWidth:2,
-      	borderColor:'#3E7F22',
+      	borderColor:'#769871',
 		alignItems: 'center', 
 		justifyContent: 'center'
 	},
@@ -470,9 +525,17 @@ const styles = StyleSheet.create({
 		minWidth: 150,
     	borderRadius: 20,
 		borderWidth:2,
-      	borderColor:'#3E7F22',
+      	borderColor:'#769871',
 		alignItems: 'center', 
 		justifyContent: 'center'
+		shadowColor: '#000',
+		shadowOffset: {
+		  width: 0,
+		  height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 4,
+		elevation: 5,
 	},
 	button3:{
 		backgroundColor: '#F8F8ED',
@@ -480,12 +543,43 @@ const styles = StyleSheet.create({
 		minWidth: 150,
     	borderRadius: 20,
 		borderWidth:2,
-      	borderColor:'#3E7F22',
+      	borderColor:'#769871',
 		flex: 0.1,
 		alignSelf: 'flex-end',
 		alignItems: 'center',
 		marginLeft:17,
 	},
+
+	button33:{
+		backgroundColor: '#F8F8ED',
+    	padding: 10,
+		minWidth: 150,
+    	borderRadius: 20,
+		borderWidth:2,
+      	borderColor:'#769871',
+		flex: 0.1,
+		alignSelf: 'flex-end',
+		alignItems: 'center',
+		marginBottom:10,
+		marginTop: 10,
+		marginLeft:30,
+	},
+
+	button34:{
+		backgroundColor: '#F8F8ED',
+    	padding: 10,
+		minWidth: 150,
+    	borderRadius: 20,
+		borderWidth:2,
+      	borderColor:'#769871',
+		flex: 0.1,
+		alignSelf: 'flex-end',
+		alignItems: 'center',
+		marginBottom:10,
+		marginTop: 10,
+		marginLeft: 10,
+	},
+	
     
 	button4:{
 		backgroundColor: '#F8F8ED',
@@ -493,12 +587,24 @@ const styles = StyleSheet.create({
 		minWidth: 200,
     	borderRadius: 20,
 		borderWidth:2,
-      	borderColor:'#3E7F22',
+      	borderColor:'#769871',
 		alignSelf: 'flex-end',
 		alignItems: 'center',
 		marginTop: 20,
 		marginRight: 80,
 	},
+
+	button5: {
+		borderRadius: 20,
+		padding: 10,
+		elevation: 2,
+	  },
+	  buttonOpen: {
+		backgroundColor: 'rgba(52, 52, 52, 0.0)'
+	  },
+	  buttonClose: {
+		backgroundColor: 'rgba(52, 52, 52, 0.0)',
+	  },
 
 	Logo: {
 		height: 300,
@@ -511,7 +617,7 @@ const styles = StyleSheet.create({
 		height: 150,
 		width: 150,
 		alignItems: 'center',
-		marginTop: 20,
+		marginTop: 10,
 	},
 
 	carLogo:{
@@ -548,17 +654,79 @@ const styles = StyleSheet.create({
 	  },
 	  text: {
 		fontSize: 18,
-		color: 'rgba(118, 152, 113, 1)',
+		color: '#769871',
+	  },
+	  text2: {
+		fontSize: 18,
+		color: 'black',
+		textDecorationLine: 'underline',
+		fontWeight: 'bold',
+		marginTop: 20,
+	  },
+
+	  text3: {
+		fontSize: 25,
+		color: '#769871',
+		fontWeight: 'bold',
+		textAlign: 'center',
+	  },
+	  text4: {
+		fontSize: 20,
+		color: 'black',
+		fontWeight: 'bold',
+		textAlign: 'center',
+	  },
+	  text5: {
+		fontSize: 14,
+		color: 'black',
+		textAlign: 'center',
+	  },
+	  text6: {
+		fontSize: 14,
+		color: 'black',
+		alignSelf: 'flex-start',
+		marginLeft: 20,
+	  },
+
+	  text7: {
+		fontSize: 18,
+		color: 'black',
+		textAlign: 'center',
+		marginTop:20,
+	  },
+	  text8: {
+		fontSize: 24,
+		color: '#769871',
+		marginTop: 20,
+	  },
+	  text9: {
+		fontSize: 18,
+		color: 'black',
+	  },
+	  textModal:{
+		fontSize: 18,
+		color: '#769871',
+		marginTop: 10,
+		alignItems: 'center',
 	  },
 	  title:{
 		fontSize: 45,
 		color: 'white',
 	  },
 	  title1:{
-		fontSize: 40,
-		color: 'rgba(118, 152, 113, 1)',
-		marginTop: 30,
+		fontSize: 40, 
+		fontWeight: 'bold',
+		color: '#769871',
+		textAlign: 'center', 
+		marginTop:60
 	  },
+	  title2: {
+		fontSize: 40, 
+		fontWeight: 'bold',
+		color: '#769871',
+		textAlign: 'center', 
+		marginTop:20
+	},
 	  subtitle:{
 		fontSize: 18,
 		color: 'white',
@@ -567,6 +735,31 @@ const styles = StyleSheet.create({
 	  },
 	  button1Text: {
 		fontSize: 20,
-		color: '#3E7F22',
-	  }
+		color: '#769871',
+	  },
+	  
+
+	  centeredView: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginTop: 22,
+	},
+
+	modalView: {
+		margin: 20,
+		backgroundColor: '#F8F8ED',
+		borderRadius: 20,
+		padding: 35,
+		alignItems: 'center',
+		shadowColor: '#000',
+		shadowOffset: {
+		  width: 0,
+		  height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 4,
+		elevation: 5,
+	  },
+
 });
