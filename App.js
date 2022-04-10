@@ -127,9 +127,9 @@ const StartScreen = ({navigation}) => {
 			<TouchableOpacity style={styles.button1}
 				onPress={() => navigation.navigate('Home')}>
 				<Text style={styles.button1Text}>Start</Text>
-				</TouchableOpacity>
+			</TouchableOpacity>
 
-				<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>		
+			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>		
 				<Text style={styles.text}> Not what you scanned? </Text>				
 			</TouchableOpacity>
 
@@ -138,6 +138,7 @@ const StartScreen = ({navigation}) => {
 }
 
 const HomeScreen = ({navigation}) => {
+	alert("hello");
 	return(
 		<View style={styles.container}>
 			<Text style={styles.title1}> Welcome to EcoScanner! </Text>
@@ -166,7 +167,7 @@ const SurveyScreen = ({navigation}) => {
 
 			<Text>Which category does the item fall under?</Text>
 			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
-			<RadioButton.Item label="Fruits/Vegetables" value="first" onPress={this.toggleCancel()}/>
+			<RadioButton.Item label="Fruits/Vegetables" value="first" />
 			<RadioButton.Item label="Animal Products" value="second" />
 			<RadioButton.Item label="Dairy Products" value="third" />
 			</RadioButton.Group>
@@ -387,6 +388,7 @@ const ResultsScreen = ({navigation, photo}) => {
 						ecoScore= '1/5';
 						bgColor = '#d61e0d';
 					}
+					
 
 
 					mileage = (2.5*ecoValue).toFixed(2);
