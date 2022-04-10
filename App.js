@@ -383,10 +383,11 @@ const ResultsScreen = ({navigation, photo}) => {
 					} else if(ecoValue>6.7 && ecoValue<9){
 						ecoScore = '2/5';
 						bgColor = '#d67f0d';
-					} else{
+					} else {
 						ecoScore= '1/5';
 						bgColor = '#d61e0d';
 					}
+
 
 					mileage = (2.5*ecoValue).toFixed(2);
 					
@@ -470,12 +471,10 @@ const ResultsScreen = ({navigation, photo}) => {
       </Pressable>		
 
 			</View>
-
-
+			
 			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>		
 				<Text style={styles.text}> Not what you scanned? </Text>				
 			</TouchableOpacity>
-
 			
 			
 
@@ -527,7 +526,7 @@ const styles = StyleSheet.create({
 		borderWidth:2,
       	borderColor:'#769871',
 		alignItems: 'center', 
-		justifyContent: 'center'
+		justifyContent: 'center',
 		shadowColor: '#000',
 		shadowOffset: {
 		  width: 0,
