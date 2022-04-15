@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Modal,  Alert, Pressable, Image, StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground, ScrollView, SafeAreaView } from 'react-native';
+import { Modal, Platform, LayoutAnimation, Alert, Pressable, Image, StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground, ScrollView, SafeAreaView, Switch, UIManager } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Camera} from 'expo-camera';
@@ -17,6 +17,60 @@ state = {
 	predictions: [],
 };
 
+const CONTENT = [
+	{
+	  isExpanded: false,
+	  category_name: 'Consumption of Meats',
+	  subcategory: [
+		{ id: 1, val: '\nSome people eat meat. Some do not. It is a personal decision. Rather than focusing on the question of: to meat or not to meat, think about reducing your FoodPrint by eating less meat, and paying attention to where it comes from, and how it is produced.\n\nHere are some ideas to improve your Meat Consumption FoodPrint:\n\nTips to Try:\n- Try "Meatless Mondays" in your home.\n- Cut your serving size of meat in half.' },
+		{ id: 2, val: '\nResorces For You:\nEating Sustainable Meat\nThe FoodPrint of Beef: A FoodPrint Report' },
+
+	  ],
+	},
+	{
+	  isExpanded: false,
+	  category_name: 'Local and Seasonal Sourcing',
+	  subcategory: [
+		{ id: 4, val: 'When you buy locally sourced food, you support local farmers and local economies. Seasonal food is also often cheaper than out-of-season food, and it tastes way better.' },
+		{ id: 5, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:' },	
+		{ id: 6, val: '\nTips to Try:' },
+		{ id: 7, val: '\nShop seasonal and local foods in your region. Visit the Real Food Encyclopedia.'},
+		{ id: 8, val: '\nResources For You:' },
+		{ id: 9, val: '\nSeasonal Food Guide' },
+		{ id: 10, val: '\nShopping Sustainably:' },
+		
+	  ],
+	},
+	{
+	  isExpanded: false,
+	  category_name: 'Food Literacy',
+	  subcategory: [
+		{ id: 11, val: 'Knowledge is power when it comes to almost anything, especially food sustainability. The more you know about the food you eat – from the labels on the package to the practices used to produce it – the easier it is to make smart decisions that can improve your health and the planet.' },
+		{ id: 12, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:' },	
+		{ id: 13, val: '\nTips to Try:' },
+		{ id: 14, val: '\n- Learn what Food Labels really mean.\n- Visit the Real Food Encyclopedia.' },
+		{ id: 15, val: '\nResources For You:' },
+		{ id: 16, val: '\nShopping Sustainably\nReal Food Encyclopedia' },
+	  ],
+	},
+	{
+	  isExpanded: false,
+	  category_name: 'Food Waste',
+	  subcategory: [
+		{ id: 10, val: 'More than 40% of food is thrown out every year in the US. When you waste food, you waste all the resources it took to produce that food (think: water, time, labor) plus your own hard-earned money!' },
+		{ id: 12, val: 'Sub Cat 2' },
+	  ],
+	},
+	{
+	  isExpanded: false,
+	  category_name: 'Animale Welfare',
+	  subcategory: [
+		{ id: 13, val: 'Sub Cat 13' },
+		{ id: 15, val: 'Sub Cat 5' },
+	  ],
+	},
+  ];
+  
 const foodList = new Map([
   ["PORK",	4.621484423],
   ["CHICKEN", 3.262298031],
@@ -105,6 +159,49 @@ const foodList = new Map([
 
 let camera;
 
+const ExpandableComponent = ({ item, onClickFunction }) => {
+	//Custom Component for the Expandable List
+	const [layoutHeight, setLayoutHeight] = useState(0);
+  
+	useEffect(() => {
+	  if (item.isExpanded) {
+		setLayoutHeight(null);
+	  } else {
+		setLayoutHeight(0);
+	  }
+	}, [item.isExpanded]);
+  
+	return (
+	  <View>
+		{/*Header of the Expandable List Item*/}
+		<TouchableOpacity
+		  activeOpacity={0.8}
+		  onPress={onClickFunction}
+		  style={styles.header}>
+		  <Text style={styles.text10}>{item.category_name+ "       +"}</Text>
+		</TouchableOpacity>
+		<View
+		  style={{
+			height: layoutHeight,
+			overflow: 'hidden',
+		  }}>
+		  {/*Content under the header of the Expandable List Item*/}
+		  {item.subcategory.map((item, key) => (
+			<TouchableOpacity
+			  key={key}
+			  style={styles.content}
+			  onPress={() => alert('Id: ' + item.id + ' val: ' + item.val)}>
+			  <Text style={styles.text5}>
+				{item.val}
+			  </Text>
+			  <View style={styles.separator} />
+			</TouchableOpacity>
+		  ))}
+		</View>
+	  </View>
+	);
+  };
+
 export default function App() {
 	return(
 
@@ -114,6 +211,7 @@ export default function App() {
 				<Stack.Screen name="Home" component={HomeScreen}  options={{title: '', headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}}/>
 				<Stack.Screen name="Camera" component={CameraScreen} options={{title: '',  headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}}/>
 				<Stack.Screen name="Survey" component={SurveyScreen} options={{title: '',  headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}} />
+				<Stack.Screen name="Tips" component={TipsScreen} options={{title: '',  headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
@@ -131,6 +229,9 @@ const StartScreen = ({navigation}) => {
 
 			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>		
 				<Text style={styles.text}> Not what you scanned? </Text>				
+			</TouchableOpacity>
+			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Tips')}>		
+				<Text style={styles.text}> Learn more about your foodprint </Text>				
 			</TouchableOpacity>
 
 		</View>
@@ -156,56 +257,136 @@ const HomeScreen = ({navigation}) => {
 const SurveyScreen = ({navigation}) => {
 	
 	const [value, setValue] = React.useState('');
+	const [value2, setValue2] = React.useState('');
+	const [value3, setValue3] = React.useState('');
+	const [value4, setValue4] = React.useState('');
+	const [value5, setValue5] = React.useState('');
+	
+	let ecoScoreSurvey = 0;
+	alert(value + ":" + value2 + ":" + value3 + ":" + value4 + ":" + value5);
+
+	if(value=="veg"){
+		ecoScoreSurvey+=2;
+	}else if(value=="dairy"){
+		ecoScoreSurvey+=1;
+	}
+	if(value2=="local"){
+		ecoScoreSurvey+=1;
+	}
+	if(value3=="notredmeat"){
+		ecoScoreSurvey+=1;
+	}
+	if(value4=="dairyfree"){
+		ecoScoreSurvey+=1;
+	}
+	if(value5=="noartificial"){
+		ecoScoreSurvey+=1;
+	}
 
 	return(
 		<View style={styles.container}>
 			<Text>Survey moment:</Text>
-			
 			<ScrollView style={styles.container}>
 			
 			<Text>Survey moment:</Text>
 
 			<Text>Which category does the item fall under?</Text>
 			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
-			<RadioButton.Item label="Fruits/Vegetables" value="first" />
-			<RadioButton.Item label="Animal Products" value="second" />
-			<RadioButton.Item label="Dairy Products" value="third" />
+			<RadioButton.Item label="Fruits/Vegetables" value="veg" />
+			<RadioButton.Item label="Animal Products" value="animal" />
+			<RadioButton.Item label="Dairy Products" value="dairy" />
 			</RadioButton.Group>
 
 			<Text>Is the item grown or produced locally?</Text>
-			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+			<RadioButton.Group onValueChange={value2 => setValue2(value2)} value={value2}>
 			<RadioButton.Item label="Yes" value="local" />
 			<RadioButton.Item label="No" value="nonlocal" />
 			</RadioButton.Group>
-
+			
 			<Text>Is it red meat?</Text>
-			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+			<RadioButton.Group onValueChange={value3 => setValue3(value3)} value={value3}>
 			<RadioButton.Item label="Yes" value="redmeat" />
 			<RadioButton.Item label="No" value="notredmeat" />
 			</RadioButton.Group>
 
 			<Text>Is it dairy free or plant-based?</Text>
-			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+			<RadioButton.Group onValueChange={value4 => setValue4(value4)} value={value4}>
 			<RadioButton.Item label="Yes" value="dairyfree" />
 			<RadioButton.Item label="No" value="notdairyfree" />
 			</RadioButton.Group>
 
 			<Text>Does the product claim no artificial colours or flavours?</Text>
-			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
-			<RadioButton.Item label="Yes" value="noartificialcolours" />
-			<RadioButton.Item label="No" value="hasartificialcolours" />
+			<RadioButton.Group onValueChange={value5 => setValue5(value5)} value={value5}>
+			<RadioButton.Item label="Yes" value="noartificial" />
+			<RadioButton.Item label="No" value="hasartificial" />
 			</RadioButton.Group>
 			
-			
+			<Text>{ecoScoreSurvey}/6</Text>
+
 			<TouchableOpacity style={styles.button1}
 				onPress={() => navigation.navigate('Home')}>
 				<Text style={styles.button1Text}>Start</Text>
 				</TouchableOpacity>
      		 </ScrollView>
 			
+			
 		</View>
 	);
 }
+
+const TipsScreen = ({navigation}) => {
+	const [listDataSource, setListDataSource] = useState(CONTENT);
+  const [multiSelect, setMultiSelect] = useState(false);
+
+   const updateLayout = (index) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    const array = [...listDataSource];
+    if (multiSelect) {
+      // If multiple select is enabled
+      array[index]['isExpanded'] = !array[index]['isExpanded'];
+    } else {
+      // If single select is enabled
+      array.map((value, placeindex) =>
+        placeindex === index
+          ? (array[placeindex]['isExpanded'] = !array[placeindex]['isExpanded'])
+          : (array[placeindex]['isExpanded'] = false)
+      );
+    }
+    setListDataSource(array);
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={{ flexDirection: 'row', padding: 10 }}>
+          <Text style={styles.titleText}>Expandable List View</Text>
+          <TouchableOpacity onPress={() => setMultiSelect(!multiSelect)}>
+            <Text
+              style={{
+                textAlign: 'center',
+                justifyContent: 'center',
+              }}>
+              {multiSelect
+                ? 'Enable Single \n Expand'
+                : 'Enalble Multiple \n Expand'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <ScrollView>
+          {listDataSource.map((item, key) => (
+            <ExpandableComponent
+              key={item.category_name}
+              onClickFunction={() => {
+                updateLayout(key);
+              }}
+              item={item}
+            />
+          ))}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 
 resize = async photo => {
@@ -317,9 +498,10 @@ const CameraPreview = ({photo, navigation }) => {
 
 
 let ecoValue = 0;
-let ecoScore = '';
+let ecoScore = 'N/A';
 let mileage = 0;
-let bgColor = '';
+let bgColor = '#F8F8ED';
+let tiptext = "Sorry, image not recognized :( "; 
 
 const ResultsScreen = ({navigation, photo}) => {
 
@@ -375,18 +557,23 @@ const ResultsScreen = ({navigation, photo}) => {
 					if(ecoValue>0.0 && ecoValue<1.2){
 						ecoScore = '5/5';
 						bgColor = '#0dd650';
+						tiptext = "Wow. You're on a mission to save the earth, aren't you?";
 					} else if(ecoValue>1.2 && ecoValue<3.4){
 						ecoScore = '4/5';
 						bgColor = '#86d60d';
+						tiptext = "Looking good. Keep it up!";
 					} else if(ecoValue>3.4 && ecoValue<6.7){
 						ecoScore = '3/5';
 						bgColor = '#d6bf0d';
+						tiptext = "Not bad. You're making some good choices.";
 					} else if(ecoValue>6.7 && ecoValue<9){
 						ecoScore = '2/5';
 						bgColor = '#d67f0d';
+						tiptext = "Meh. Could be worse.";
 					} else {
 						ecoScore= '1/5';
 						bgColor = '#d61e0d';
+						tiptext = "OK, we've got some work to do, but I believe in you!";
 					}
 					
 
@@ -404,7 +591,7 @@ const ResultsScreen = ({navigation, photo}) => {
 				}
 
 			} else {
-				setPrediction("No predictions returned");
+				setPrediction("No predictions");
 			}
 		})
 		.catch(err => console.log('error', err))
@@ -425,6 +612,7 @@ const ResultsScreen = ({navigation, photo}) => {
 				</View>
 			</ImageBackground> 
 
+			<Text style={{fontSize: 20, marginTop: 20,}}>{tiptext}</Text>
 			<Text style={{fontSize: 20, flexDirection:'row',  flexWrap:'wrap', marginTop: 20,}}>Equivalent to:</Text> 
 			<Image source={Car} style={styles.carLogo} /> 
 			<Text style={{fontSize: 20, textAlign: 'center', flexWrap:'wrap',  marginTop: 10,}}>{mileage} KMs</Text>			
@@ -474,6 +662,10 @@ const ResultsScreen = ({navigation, photo}) => {
 
 			</View>
 			
+			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Tips')}>		
+				<Text style={styles.text}> Learn more about your foodprint </Text>				
+			</TouchableOpacity>
+
 			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>		
 				<Text style={styles.text}> Not what you scanned? </Text>				
 			</TouchableOpacity>
@@ -662,7 +854,7 @@ const styles = StyleSheet.create({
 		color: 'black',
 		textDecorationLine: 'underline',
 		fontWeight: 'bold',
-		marginTop: 20,
+		marginTop: 10,
 	  },
 
 	  text3: {
@@ -703,6 +895,13 @@ const styles = StyleSheet.create({
 	  text9: {
 		fontSize: 18,
 		color: 'black',
+	  },
+	  text10: {
+		fontSize: 20,
+		color: 'black',
+		fontWeight: 'bold',
+		textAlign: 'left',
+		marginLeft:10,
 	  },
 	  textModal:{
 		fontSize: 18,
