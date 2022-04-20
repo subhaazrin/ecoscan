@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Modal, Platform, LayoutAnimation, Alert, Pressable, Image, StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground, ScrollView, SafeAreaView, Switch, UIManager } from 'react-native';
+import { Modal, Linking, Platform, LayoutAnimation, Alert, Pressable, Image, StyleSheet, Text, View, TouchableOpacity, Button, ImageBackground, ScrollView, SafeAreaView, Switch, UIManager } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Camera} from 'expo-camera';
@@ -11,11 +11,13 @@ import Cam from './assets/photo-camera-interface-symbol-for-button.png';
 import Car from './assets/car.png';
 import { RadioButton } from 'react-native-paper';
 
+
 const Stack = createNativeStackNavigator();
 
 state = {
 	predictions: [],
 };
+
 
 const CONTENT = [
 	{
@@ -57,16 +59,24 @@ const CONTENT = [
 	  isExpanded: false,
 	  category_name: 'Food Waste',
 	  subcategory: [
-		{ id: 10, val: 'More than 40% of food is thrown out every year in the US. When you waste food, you waste all the resources it took to produce that food (think: water, time, labor) plus your own hard-earned money!' },
-		{ id: 12, val: 'Sub Cat 2' },
+		{ id: 17, val: 'More than 40% of food is thrown out every year in the US. When you waste food, you waste all the resources it took to produce that food (think: water, time, labor) plus your own hard-earned money!' },
+		{ id: 18, val: '\nTips to Try:'},
+		{ id: 19, val: 'Make a grocery list before you go shopping so you are not buying things you will not use.'},
+		{ id: 20, val: 'Compost or reuse food scraps.'},
+		{ id: 21, val: '\nResources For You:' },
+		{ id: 22, val: '\nCooking Sustainably\nCompost 101' },
 	  ],
 	},
 	{
 	  isExpanded: false,
 	  category_name: 'Animale Welfare',
 	  subcategory: [
-		{ id: 13, val: 'Sub Cat 13' },
-		{ id: 15, val: 'Sub Cat 5' },
+		{ id: 11, val: 'Factory farms, or concentrated animal feeding operations (CAFOs), inhumanely force animals to endure cramped, unhealthy conditions. They also have a negative impact on the environment, communities, farm workers and public health.' },
+		{ id: 12, val: '\nHere are some ideas to improve your Animal Welfare FoodPrint:' },	
+		{ id: 13, val: '\nTips to Try:' },
+		{ id: 14, val: '\n- Look for Animal Welfare Approved labels on products at the shelf.\n- Find a local butcher that reliably sources humanely slaughtered meats.' },
+		{ id: 15, val: '\nResources For You:' },
+		{ id: 16, val: '\nFood Label Guide\nFarm Animal Welfare' },
 	  ],
 	},
   ];
@@ -212,6 +222,7 @@ export default function App() {
 				<Stack.Screen name="Camera" component={CameraScreen} options={{title: '',  headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}}/>
 				<Stack.Screen name="Survey" component={SurveyScreen} options={{title: '',  headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}} />
 				<Stack.Screen name="Tips" component={TipsScreen} options={{title: '',  headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}} />
+				<Stack.Screen name="Results" component={SurveyResultScreen} options={{title: '',  headerStyle: { backgroundColor: 'rgba(118, 152, 113, 1)'}}} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
@@ -253,7 +264,7 @@ const HomeScreen = ({navigation}) => {
 	);
 }
 
-
+let ecoSurv = 0;
 const SurveyScreen = ({navigation}) => {
 	
 	const [value, setValue] = React.useState('');
@@ -262,11 +273,14 @@ const SurveyScreen = ({navigation}) => {
 	const [value4, setValue4] = React.useState('');
 	const [value5, setValue5] = React.useState('');
 	
-	let ecoScoreSurvey = 0;
+	
 	alert(value + ":" + value2 + ":" + value3 + ":" + value4 + ":" + value5);
-
+	
+	let ecoScoreSurvey = 0;
+	
 	if(value=="veg"){
 		ecoScoreSurvey+=2;
+
 	}else if(value=="dairy"){
 		ecoScoreSurvey+=1;
 	}
@@ -283,58 +297,159 @@ const SurveyScreen = ({navigation}) => {
 		ecoScoreSurvey+=1;
 	}
 
+	ecoSurv = ecoScoreSurvey;
+
 	return(
 		<View style={styles.container}>
-			<Text>Survey moment:</Text>
+			<Text style={styles.title2}>EcoScan Survey:</Text>
+
+			<Text style ={{fontSize: 18, marginLeft: 15, textAlign: 'center', marginTop: 10, marginBottom:25}}>Take a short survey to test how eco-friendly your food is!</Text>
+			
 			<ScrollView style={styles.container}>
-			
-			<Text>Survey moment:</Text>
 
-			<Text>Which category does the item fall under?</Text>
-			<RadioButton.Group onValueChange={value => setValue(value)} value={value}>
-			<RadioButton.Item label="Fruits/Vegetables" value="veg" />
-			<RadioButton.Item label="Animal Products" value="animal" />
-			<RadioButton.Item label="Dairy Products" value="dairy" />
+			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Which category does the item fall under?</Text>
+			<RadioButton.Group onValueChange={value => setValue(value)} value={value} radioBackground="red">
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30, maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Fruits/Vegetables" value="veg" />
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, marginTop:10,  alignContent: 'center', alignSelf: 'center'}}label="Animal Products" value="animal" />
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, marginTop:10,  alignContent: 'center', alignSelf: 'center'}}label="Dairy Products" value="dairy" />
 			</RadioButton.Group>
 
-			<Text>Is the item grown or produced locally?</Text>
+			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Is the item grown or produced locally?</Text>
 			<RadioButton.Group onValueChange={value2 => setValue2(value2)} value={value2}>
-			<RadioButton.Item label="Yes" value="local" />
-			<RadioButton.Item label="No" value="nonlocal" />
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Yes" value="local" />
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center', marginTop:10}} label="No" value="nonlocal" />
 			</RadioButton.Group>
 			
-			<Text>Is it red meat?</Text>
+			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold',marginBottom: 25,}}>Is it red meat?</Text>
 			<RadioButton.Group onValueChange={value3 => setValue3(value3)} value={value3}>
-			<RadioButton.Item label="Yes" value="redmeat" />
-			<RadioButton.Item label="No" value="notredmeat" />
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Yes" value="redmeat" />
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center', marginTop:10}} label="No" value="notredmeat" />
 			</RadioButton.Group>
 
-			<Text>Is it dairy free or plant-based?</Text>
+			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Is it dairy free or plant-based?</Text>
 			<RadioButton.Group onValueChange={value4 => setValue4(value4)} value={value4}>
-			<RadioButton.Item label="Yes" value="dairyfree" />
-			<RadioButton.Item label="No" value="notdairyfree" />
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center'}} label="Yes" value="dairyfree" />
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center', marginTop:10}} label="No" value="notdairyfree" />
 			</RadioButton.Group>
 
-			<Text>Does the product claim no artificial colours or flavours?</Text>
+			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Does the product claim no artificial colours or flavours?</Text>
 			<RadioButton.Group onValueChange={value5 => setValue5(value5)} value={value5}>
-			<RadioButton.Item label="Yes" value="noartificial" />
-			<RadioButton.Item label="No" value="hasartificial" />
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center'}} label="Yes" value="noartificial" />
+			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center', marginTop:10}}label="No" value="hasartificial" />
 			</RadioButton.Group>
 			
-			<Text>{ecoScoreSurvey}/6</Text>
+			{/*<Text>{ecoScoreSurvey}/6</Text>*/}
 
 			<TouchableOpacity style={styles.button1}
-				onPress={() => navigation.navigate('Home')}>
-				<Text style={styles.button1Text}>Start</Text>
+				onPress={() => navigation.navigate('Results')}>
+				<Text style={styles.button1Text}>Submit</Text>
 				</TouchableOpacity>
      		 </ScrollView>
-			
 			
 		</View>
 	);
 }
 
-const TipsScreen = ({navigation}) => {
+let ecoScore1 = 'N/A';
+let bgColor1 = '#F8F8ED';
+let tiptext1 = "Sorry, image not recognized :( "; 
+
+const SurveyResultScreen = (navigation) => {
+	
+	const [modalVisible, setModalVisible] = useState(false);
+
+	if(ecoSurv == 6){
+		ecoScore1 = '6/6';
+		bgColor1 = '#0dd650';
+		tiptext1 = "Amazing! Greta Thunberg aspires to be like you!";
+	}else if (ecoSurv == 5){
+		ecoScore1 = '5/6';
+		bgColor1 = '#0dd650';
+		tiptext1 = "Wow. You're on a mission to save the earth, aren't you?";
+	} else if (ecoSurv == 4){
+		ecoScore1 = '4/6';
+		bgColor1 = '#86d60d';
+		tiptext1 = "Looking good. Keep it up!";
+	} else if (ecoSurv == 3){
+		ecoScore1 = '3/6';
+		bgColor1 = '#d6bf0d';
+		tiptext1 = "Not bad. You're making some good choices.";
+	} else if (ecoSurv == 2){
+		ecoScore1 = '2/6';
+		bgColor1 = '#d67f0d';
+		tiptext1 = "Meh. Could be worse.";
+	} else {
+		ecoScore1 = '1/6';
+		bgColor1 = '#d61e0d';
+		tiptext1 = "OK, we've got some work to do, but I believe in you!";
+	}
+
+	return(
+		<View style={styles.container}>
+
+			<Text style={styles.title2}>Results:</Text>
+			
+			<View style={{backgroundColor: bgColor1, borderRadius: 9, height: 500, width: 350, alignItems: 'center', marginTop:35}}>
+			
+			<Text style={{fontSize: 25, textAlign: 'center', marginTop: 25, fontWeight: 'bold',}}>EcoScore:</Text>
+			
+			<ImageBackground source={Score} style={styles.Logo2}>
+				<View style={styles.textView}>
+				<Text style = {{fontSize: 60, textAlign: 'center',}}>{ecoScore1}</Text>
+				</View>
+			</ImageBackground> 
+
+			<Text style={{fontSize: 20, marginTop: 20, textAlign: 'center',}}>{tiptext1}</Text>
+			<Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+	    <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.text3}>Learn more about your EcoSore!</Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text4}>What is your EcoScore?</Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text5}>The EcoScore is a rating from 1 to 5 that determines how eco-friendly the food you are eating is. The score is determined based on carbon emissions from the manufacturing process.
+			</Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text4}>Looking to improve your score?</Text>
+			<Text style={styles.text}></Text>
+			<Text style={styles.text5}>Here are some tips on how to reduce your overall carbon footprint:</Text>
+			<Text style={styles.text6}>- shop local</Text>
+			<Text style={styles.text6}>- shop organic</Text>
+			<Text style={styles.text6}>- avoid plastic packaging</Text>
+			<Text style={styles.text}></Text>
+			
+            <Pressable
+              style={[styles.button5, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.text8}>Back</Text>
+            </Pressable>
+          </View>
+        </View>
+	</Modal>
+      <Pressable style={[styles.button5, styles.buttonOpen]} onPress={() => setModalVisible(true)}>
+        <Text style={styles.text2}>Learn more about your EcoScore!</Text>
+      </Pressable>	
+
+			</View>
+			
+			<TouchableOpacity style={styles.button1}
+				onPress={() => navigation.navigate('Start')}>
+				<Text style={styles.button1Text}>Back</Text>
+			</TouchableOpacity>
+
+		</View>
+	);
+};
+
+const TipsScreen = (props, navigation) => {
 	const [listDataSource, setListDataSource] = useState(CONTENT);
   const [multiSelect, setMultiSelect] = useState(false);
 
@@ -383,6 +498,10 @@ const TipsScreen = ({navigation}) => {
             />
           ))}
         </ScrollView>
+		<TouchableOpacity style={styles.button1}
+				onPress={() => navigation.navigate('Start')}>
+				<Text style={styles.button1Text}>Back</Text>
+			</TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -511,8 +630,8 @@ const ResultsScreen = ({navigation, photo}) => {
 
 	const raw = JSON.stringify({
 		"user_app_id": {
-			"user_id": "r3k3q4ukhcbp", // @todo Fill in your user_id
-			"app_id": "027943ba177f491b9a51b5652a547d8a", // @todo Fill in your app_id
+			"user_id": "uyu5y2gkceoq", // @todo Fill in your user_id
+			"app_id": "cb1d8dbf5f184f1e90661ab46d918a9d", // @todo Fill in your app_id
 		},
 		//"model_id": "food-item-v1-recognition",
 		//"version-id": "dfebc169854e429086aceb8368662641",
@@ -529,7 +648,7 @@ const ResultsScreen = ({navigation, photo}) => {
 		method: "POST",
 		headers: {
 			"Accept": "application/json",
-			"Authorization": "Key c5c1b443f2ed41248f644a7dbeeb71a4", // @todo Fill in your API key
+			"Authorization": "Key fb0ccc059c1e4f668b5d8bfd679c892f", // @todo Fill in your API key
 		},
 		body: raw,
 	};
@@ -576,9 +695,8 @@ const ResultsScreen = ({navigation, photo}) => {
 						tiptext = "OK, we've got some work to do, but I believe in you!";
 					}
 					
-
-
 					mileage = (2.5*ecoValue).toFixed(2);
+
 					
 					setPrediction(resultText);
 					/*
@@ -612,7 +730,8 @@ const ResultsScreen = ({navigation, photo}) => {
 				</View>
 			</ImageBackground> 
 
-			<Text style={{fontSize: 20, marginTop: 20,}}>{tiptext}</Text>
+			<Text style={{fontSize: 20, marginTop: 20, textAlign: 'center',}}>{tiptext}</Text>
+			<Text style={{fontSize: 20, marginTop: 20, textAlign: 'center',}}>CO2e: {ecoValue}</Text>
 			<Text style={{fontSize: 20, flexDirection:'row',  flexWrap:'wrap', marginTop: 20,}}>Equivalent to:</Text> 
 			<Image source={Car} style={styles.carLogo} /> 
 			<Text style={{fontSize: 20, textAlign: 'center', flexWrap:'wrap',  marginTop: 10,}}>{mileage} KMs</Text>			
@@ -638,9 +757,9 @@ const ResultsScreen = ({navigation, photo}) => {
 			<Text style={styles.text4}>Looking to improve your score?</Text>
 			<Text style={styles.text}></Text>
 			<Text style={styles.text5}>Here are some tips on how to reduce your overall carbon footprint:</Text>
-			<Text style={styles.text6}>- shop local (expand on this)</Text>
-			<Text style={styles.text6}>- shop organic (expand on this)</Text>
-			<Text style={styles.text6}>- avoid plastic packaging (expand on this)</Text>
+			<Text style={styles.text6}>- shop local </Text>
+			<Text style={styles.text6}>- shop organic </Text>
+			<Text style={styles.text6}>- avoid plastic packaging </Text>
 			<Text style={styles.text}></Text>
 			
 			<Text style={styles.text4}>What is your mileage?</Text>
