@@ -5,7 +5,7 @@ import { Modal, Linking, Platform, LayoutAnimation, Alert, Pressable, Image, Sty
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Camera} from 'expo-camera';
-import Logo from './assets/title-logo.png'; 
+import Logo from './assets/title-logo.png';
 import Score from './assets/ecoScore.png';
 import Cam from './assets/photo-camera-interface-symbol-for-button.png';
 import Car from './assets/car.png';
@@ -34,13 +34,13 @@ const CONTENT = [
 	  category_name: 'Local and Seasonal Sourcing',
 	  subcategory: [
 		{ id: 4, val: 'When you buy locally sourced food, you support local farmers and local economies. Seasonal food is also often cheaper than out-of-season food, and it tastes way better.' },
-		{ id: 5, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:' },	
+		{ id: 5, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:' },
 		{ id: 6, val: '\nTips to Try:' },
 		{ id: 7, val: '\nShop seasonal and local foods in your region. Visit the Real Food Encyclopedia.'},
 		{ id: 8, val: '\nResources For You:' },
 		{ id: 9, val: '\nSeasonal Food Guide' },
 		{ id: 10, val: '\nShopping Sustainably:' },
-		
+
 	  ],
 	},
 	{
@@ -48,7 +48,7 @@ const CONTENT = [
 	  category_name: 'Food Literacy',
 	  subcategory: [
 		{ id: 11, val: 'Knowledge is power when it comes to almost anything, especially food sustainability. The more you know about the food you eat – from the labels on the package to the practices used to produce it – the easier it is to make smart decisions that can improve your health and the planet.' },
-		{ id: 12, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:' },	
+		{ id: 12, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:' },
 		{ id: 13, val: '\nTips to Try:' },
 		{ id: 14, val: '\n- Learn what Food Labels really mean.\n- Visit the Real Food Encyclopedia.' },
 		{ id: 15, val: '\nResources For You:' },
@@ -72,7 +72,7 @@ const CONTENT = [
 	  category_name: 'Animale Welfare',
 	  subcategory: [
 		{ id: 11, val: 'Factory farms, or concentrated animal feeding operations (CAFOs), inhumanely force animals to endure cramped, unhealthy conditions. They also have a negative impact on the environment, communities, farm workers and public health.' },
-		{ id: 12, val: '\nHere are some ideas to improve your Animal Welfare FoodPrint:' },	
+		{ id: 12, val: '\nHere are some ideas to improve your Animal Welfare FoodPrint:' },
 		{ id: 13, val: '\nTips to Try:' },
 		{ id: 14, val: '\n- Look for Animal Welfare Approved labels on products at the shelf.\n- Find a local butcher that reliably sources humanely slaughtered meats.' },
 		{ id: 15, val: '\nResources For You:' },
@@ -80,7 +80,7 @@ const CONTENT = [
 	  ],
 	},
   ];
-  
+
 const foodList = new Map([
   ["PORK",	4.621484423],
   ["CHICKEN", 3.262298031],
@@ -172,7 +172,7 @@ let camera;
 const ExpandableComponent = ({ item, onClickFunction }) => {
 	//Custom Component for the Expandable List
 	const [layoutHeight, setLayoutHeight] = useState(0);
-  
+
 	useEffect(() => {
 	  if (item.isExpanded) {
 		setLayoutHeight(null);
@@ -180,7 +180,7 @@ const ExpandableComponent = ({ item, onClickFunction }) => {
 		setLayoutHeight(0);
 	  }
 	}, [item.isExpanded]);
-  
+
 	return (
 	  <View>
 		{/*Header of the Expandable List Item*/}
@@ -231,18 +231,18 @@ export default function App() {
 const StartScreen = ({navigation}) => {
 	return(
 		<View style={styles.container}>
-			<Image source={Logo} style={styles.Logo} /> 
-			
+			<Image source={Logo} style={styles.Logo} />
+
 			<TouchableOpacity style={styles.button1}
 				onPress={() => navigation.navigate('Home')}>
 				<Text style={styles.button1Text}>Start</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>		
-				<Text style={styles.text}> Not what you scanned? </Text>				
+			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>
+				<Text style={styles.text}> Not what you scanned? </Text>
 			</TouchableOpacity>
-			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Tips')}>		
-				<Text style={styles.text}> Learn more about your foodprint </Text>				
+			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Tips')}>
+				<Text style={styles.text}> Learn more about your foodprint </Text>
 			</TouchableOpacity>
 
 		</View>
@@ -257,7 +257,7 @@ const HomeScreen = ({navigation}) => {
 			<Text style={styles.text7}> Estimate your food carbonfootprint with a simple scan! </Text>
 			<TouchableOpacity style={styles.button2}
 				onPress={() => navigation.navigate('Camera')}>
-			<Image source={Cam} style={styles.Cam} /> 
+			<Image source={Cam} style={styles.Cam} />
 				<Text style={styles.text9}>Proceed to Scanner!</Text>
 				</TouchableOpacity>
 		</View>
@@ -266,18 +266,18 @@ const HomeScreen = ({navigation}) => {
 
 let ecoSurv = 0;
 const SurveyScreen = ({navigation}) => {
-	
+
 	const [value, setValue] = React.useState('');
 	const [value2, setValue2] = React.useState('');
 	const [value3, setValue3] = React.useState('');
 	const [value4, setValue4] = React.useState('');
 	const [value5, setValue5] = React.useState('');
-	
-	
+
+
 	alert(value + ":" + value2 + ":" + value3 + ":" + value4 + ":" + value5);
-	
+
 	let ecoScoreSurvey = 0;
-	
+
 	if(value=="veg"){
 		ecoScoreSurvey+=2;
 
@@ -304,7 +304,7 @@ const SurveyScreen = ({navigation}) => {
 			<Text style={styles.title2}>EcoScan Survey:</Text>
 
 			<Text style ={{fontSize: 18, marginLeft: 15, textAlign: 'center', marginTop: 10, marginBottom:25}}>Take a short survey to test how eco-friendly your food is!</Text>
-			
+
 			<ScrollView style={styles.container}>
 
 			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Which category does the item fall under?</Text>
@@ -319,7 +319,7 @@ const SurveyScreen = ({navigation}) => {
 			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Yes" value="local" />
 			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center', marginTop:10}} label="No" value="nonlocal" />
 			</RadioButton.Group>
-			
+
 			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold',marginBottom: 25,}}>Is it red meat?</Text>
 			<RadioButton.Group onValueChange={value3 => setValue3(value3)} value={value3}>
 			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Yes" value="redmeat" />
@@ -337,7 +337,7 @@ const SurveyScreen = ({navigation}) => {
 			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center'}} label="Yes" value="noartificial" />
 			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center', marginTop:10}}label="No" value="hasartificial" />
 			</RadioButton.Group>
-			
+
 			{/*<Text>{ecoScoreSurvey}/6</Text>*/}
 
 			<TouchableOpacity style={styles.button1}
@@ -345,17 +345,17 @@ const SurveyScreen = ({navigation}) => {
 				<Text style={styles.button1Text}>Submit</Text>
 				</TouchableOpacity>
      		 </ScrollView>
-			
+
 		</View>
 	);
 }
 
 let ecoScore1 = 'N/A';
 let bgColor1 = '#F8F8ED';
-let tiptext1 = "Sorry, image not recognized :( "; 
+let tiptext1 = "Sorry, image not recognized :( ";
 
 const SurveyResultScreen = (navigation) => {
-	
+
 	const [modalVisible, setModalVisible] = useState(false);
 
 	if(ecoSurv == 6){
@@ -388,16 +388,16 @@ const SurveyResultScreen = (navigation) => {
 		<View style={styles.container}>
 
 			<Text style={styles.title2}>Results:</Text>
-			
+
 			<View style={{backgroundColor: bgColor1, borderRadius: 9, height: 500, width: 350, alignItems: 'center', marginTop:35}}>
-			
+
 			<Text style={{fontSize: 25, textAlign: 'center', marginTop: 25, fontWeight: 'bold',}}>EcoScore:</Text>
-			
+
 			<ImageBackground source={Score} style={styles.Logo2}>
 				<View style={styles.textView}>
 				<Text style = {{fontSize: 60, textAlign: 'center',}}>{ecoScore1}</Text>
 				</View>
-			</ImageBackground> 
+			</ImageBackground>
 
 			<Text style={{fontSize: 20, marginTop: 20, textAlign: 'center',}}>{tiptext1}</Text>
 			<Modal
@@ -425,7 +425,7 @@ const SurveyResultScreen = (navigation) => {
 			<Text style={styles.text6}>- shop organic</Text>
 			<Text style={styles.text6}>- avoid plastic packaging</Text>
 			<Text style={styles.text}></Text>
-			
+
             <Pressable
               style={[styles.button5, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>
@@ -436,10 +436,10 @@ const SurveyResultScreen = (navigation) => {
 	</Modal>
       <Pressable style={[styles.button5, styles.buttonOpen]} onPress={() => setModalVisible(true)}>
         <Text style={styles.text2}>Learn more about your EcoScore!</Text>
-      </Pressable>	
+      </Pressable>
 
 			</View>
-			
+
 			<TouchableOpacity style={styles.button1}
 				onPress={() => navigation.navigate('Start')}>
 				<Text style={styles.button1Text}>Back</Text>
@@ -449,7 +449,7 @@ const SurveyResultScreen = (navigation) => {
 	);
 };
 
-const TipsScreen = (props, navigation) => {
+const TipsScreen = ({navigation}) => {
 	const [listDataSource, setListDataSource] = useState(CONTENT);
   const [multiSelect, setMultiSelect] = useState(false);
 
@@ -525,10 +525,10 @@ const CameraScreen = ({navigation, route}) => {
 	const { status } = Camera.requestCameraPermissionsAsync();
 
 	objectDetection = async () => {
-		
+
 		// I added the base64 flag for takePictureAsync to return the bytes of the
 		// image in base64 format: https://docs.expo.dev/versions/latest/sdk/camera/#takepictureasync
-		
+
 		const photo = await camera.takePictureAsync({ base64: true })
 		setPreviewVisible(true)
 		setCapturedImage(photo)
@@ -575,7 +575,7 @@ const CameraScreen = ({navigation, route}) => {
 
 const CameraPreview = ({photo, navigation }) => {
 	const [showResults, setShowResults] = useState(false);
- 
+
  return (
     <View
       style={{
@@ -586,7 +586,7 @@ const CameraPreview = ({photo, navigation }) => {
       }}
     >
 			{showResults ? (
-				<ResultsScreen photo={photo} />
+				<ResultsScreen navigation={navigation} photo={photo} />
 			) : (
 				<>
 					<ImageBackground
@@ -597,18 +597,18 @@ const CameraPreview = ({photo, navigation }) => {
 					/>
 
 					<View style={{flexDirection: 'row'}}>
-					<TouchableOpacity style={styles.button33} 
+					<TouchableOpacity style={styles.button33}
 					onPress={() => navigation.navigate('Home')}>
 						<Text style={styles.text}> Retake </Text>
 					</TouchableOpacity>
-					
+
 					<TouchableOpacity style={styles.button34}
 					onPress={() => setShowResults(true)}>
-					<Text style={styles.text}> Submit </Text>						
+					<Text style={styles.text}> Submit </Text>
 					</TouchableOpacity>
 					</View>
-					
-					
+
+
 				</>
 			)}
     </View>
@@ -620,12 +620,12 @@ let ecoValue = 0;
 let ecoScore = 'N/A';
 let mileage = 0;
 let bgColor = '#F8F8ED';
-let tiptext = "Sorry, image not recognized :( "; 
+let tiptext = "Sorry, image not recognized :( ";
 
 const ResultsScreen = ({navigation, photo}) => {
 
 	const [modalVisible, setModalVisible] = useState(false);
-	
+
 	const [prediction, setPrediction] = useState("Waiting for results...")
 
 	const raw = JSON.stringify({
@@ -661,17 +661,17 @@ const ResultsScreen = ({navigation, photo}) => {
 			const output = result.outputs[0];
 			if (output && output.data && output.data.concepts) {
 				let resultText= "";
-				
-				
+
+
 				for (const concept of output.data.concepts) {
-					
+
 					resultText += concept.name;
 					//resultText += " ";
 					//resultText += concept.value;
 					//resultText += "\n";
 					//resultText = "apple juice";
-					
-					
+
+
 					ecoValue = foodList.get(resultText.toUpperCase());
 					if(ecoValue>0.0 && ecoValue<1.2){
 						ecoScore = '5/5';
@@ -694,16 +694,16 @@ const ResultsScreen = ({navigation, photo}) => {
 						bgColor = '#d61e0d';
 						tiptext = "OK, we've got some work to do, but I believe in you!";
 					}
-					
+
 					mileage = (2.5*ecoValue).toFixed(2);
 
-					
+
 					setPrediction(resultText);
 					/*
 					Results:
 					Chocolate
 
-					*/ 
+					*/
 
 					break;
 				}
@@ -717,25 +717,25 @@ const ResultsScreen = ({navigation, photo}) => {
 	return(
 		<View style={styles.container}>
 			<Text style={styles.title2}>Results:</Text>
-			
-			
+
+
 			<View style={{backgroundColor: bgColor, borderRadius: 9, height: 500, width: 350, alignItems: 'center', marginTop:35}}>
-			
+
 			<Text style={{textTransform: 'capitalize', fontSize: 35, textAlign: 'center', marginTop:25, fontWeight: 'bold'}}>{prediction}</Text>
 			<Text style={{fontSize: 25, textAlign: 'center', marginTop: 25, fontWeight: 'bold',}}>EcoScore:</Text>
-			
+
 			<ImageBackground source={Score} style={styles.Logo2}>
 				<View style={styles.textView}>
 				<Text style = {{fontSize: 60, textAlign: 'center',}}>{ecoScore}</Text>
 				</View>
-			</ImageBackground> 
+			</ImageBackground>
 
 			<Text style={{fontSize: 20, marginTop: 20, textAlign: 'center',}}>{tiptext}</Text>
 			<Text style={{fontSize: 20, marginTop: 20, textAlign: 'center',}}>CO2e: {ecoValue}</Text>
-			<Text style={{fontSize: 20, flexDirection:'row',  flexWrap:'wrap', marginTop: 20,}}>Equivalent to:</Text> 
-			<Image source={Car} style={styles.carLogo} /> 
-			<Text style={{fontSize: 20, textAlign: 'center', flexWrap:'wrap',  marginTop: 10,}}>{mileage} KMs</Text>			
-			
+			<Text style={{fontSize: 20, flexDirection:'row',  flexWrap:'wrap', marginTop: 20,}}>Equivalent to:</Text>
+			<Image source={Car} style={styles.carLogo} />
+			<Text style={{fontSize: 20, textAlign: 'center', flexWrap:'wrap',  marginTop: 10,}}>{mileage} KMs</Text>
+
 			<Modal
         animationType="slide"
         transparent={true}
@@ -761,10 +761,10 @@ const ResultsScreen = ({navigation, photo}) => {
 			<Text style={styles.text6}>- shop organic </Text>
 			<Text style={styles.text6}>- avoid plastic packaging </Text>
 			<Text style={styles.text}></Text>
-			
+
 			<Text style={styles.text4}>What is your mileage?</Text>
 			<Text style={styles.text}></Text>
-			<Text style={styles.text5}>The "equivalent to" feature compares the carbon emissions emitted in the manufacturing process 
+			<Text style={styles.text5}>The "equivalent to" feature compares the carbon emissions emitted in the manufacturing process
 			for your food of choice and displays it in carbon emissions per mile for a care, for comparison.
 			</Text>
             <Pressable
@@ -777,22 +777,22 @@ const ResultsScreen = ({navigation, photo}) => {
       </Modal>
       <Pressable style={[styles.button5, styles.buttonOpen]} onPress={() => setModalVisible(true)}>
         <Text style={styles.text2}>Learn more about your EcoScore!</Text>
-      </Pressable>		
+      </Pressable>
 
 			</View>
-			
-			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Tips')}>		
-				<Text style={styles.text}> Learn more about your foodprint </Text>				
+
+			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Tips')}>
+				<Text style={styles.text}> Learn more about your foodprint </Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>		
-				<Text style={styles.text}> Not what you scanned? </Text>				
+			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>
+				<Text style={styles.text}> Not what you scanned? </Text>
 			</TouchableOpacity>
-			
-			
+
+
 
 		</View>
-		
+
 	)
 }
 
@@ -805,8 +805,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	button: {
-		flex: 1, 
-		alignItems: 'center', 
+		flex: 1,
+		alignItems: 'center',
 		justifyContent: 'center'
 	},
 	textView: {
@@ -818,7 +818,7 @@ const styles = StyleSheet.create({
 		right: 0,
 		bottom: 0,
 	},
-	
+
 	button1:{
 		backgroundColor: '#F8F8ED',
 		marginTop: 30,
@@ -827,7 +827,7 @@ const styles = StyleSheet.create({
     	borderRadius: 30,
 		borderWidth:2,
       	borderColor:'#769871',
-		alignItems: 'center', 
+		alignItems: 'center',
 		justifyContent: 'center'
 	},
 	button2:{
@@ -838,7 +838,7 @@ const styles = StyleSheet.create({
     	borderRadius: 20,
 		borderWidth:2,
       	borderColor:'#769871',
-		alignItems: 'center', 
+		alignItems: 'center',
 		justifyContent: 'center',
 		shadowColor: '#000',
 		shadowOffset: {
@@ -891,8 +891,8 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		marginLeft: 10,
 	},
-	
-    
+
+
 	button4:{
 		backgroundColor: '#F8F8ED',
     	padding: 15,
@@ -935,7 +935,7 @@ const styles = StyleSheet.create({
 	carLogo:{
 		height: 50,
 		width: 65,
-		flexDirection:'row', 
+		flexDirection:'row',
 		flexWrap:'wrap',
 		marginTop: 10,
 	},
@@ -1033,17 +1033,17 @@ const styles = StyleSheet.create({
 		color: 'white',
 	  },
 	  title1:{
-		fontSize: 40, 
+		fontSize: 40,
 		fontWeight: 'bold',
 		color: '#769871',
-		textAlign: 'center', 
+		textAlign: 'center',
 		marginTop:60
 	  },
 	  title2: {
-		fontSize: 40, 
+		fontSize: 40,
 		fontWeight: 'bold',
 		color: '#769871',
-		textAlign: 'center', 
+		textAlign: 'center',
 		marginTop:20
 	},
 	  subtitle:{
@@ -1056,7 +1056,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		color: '#769871',
 	  },
-	  
+
 
 	  centeredView: {
 		flex: 1,
