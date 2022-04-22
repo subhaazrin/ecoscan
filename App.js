@@ -269,23 +269,23 @@ const SurveyScreen = ({navigation}) => {
 
 	let ecoScoreSurvey = 0;
 
-	if(value=="veg"){
-		ecoScoreSurvey+=2;
+	if (value=="veg") {
+		ecoScoreSurvey += 2;
 
-	}else if(value=="dairy"){
-		ecoScoreSurvey+=1;
+	} else if (value=="dairy") {
+		ecoScoreSurvey += 1;
 	}
-	if(value2=="local"){
-		ecoScoreSurvey+=1;
+	if (value2=="local") {
+		ecoScoreSurvey += 1;
 	}
-	if(value3=="notredmeat"){
-		ecoScoreSurvey+=1;
+	if (value3=="notredmeat") {
+		ecoScoreSurvey += 1;
 	}
-	if(value4=="dairyfree"){
-		ecoScoreSurvey+=1;
+	if (value4=="dairyfree") {
+		ecoScoreSurvey += 1;
 	}
-	if(value5=="noartificial"){
-		ecoScoreSurvey+=1;
+	if (value5=="noartificial") {
+		ecoScoreSurvey += 1;
 	}
 
 	ecoSurv = ecoScoreSurvey;
@@ -293,50 +293,44 @@ const SurveyScreen = ({navigation}) => {
 	return(
 		<View style={styles.container}>
 			<Text style={styles.title2}>EcoScan Survey:</Text>
-
 			<Text style ={{fontSize: 18, marginLeft: 15, textAlign: 'center', marginTop: 10, marginBottom:25}}>Take a short survey to test how eco-friendly your food is!</Text>
-
 			<ScrollView>
+				<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Which category does the item fall under?</Text>
+				<RadioButton.Group onValueChange={value => setValue(value)} value={value} radioBackground="red">
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30, maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Fruits/Vegetables" value="veg" />
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, marginTop:10,  alignContent: 'center', alignSelf: 'center'}}label="Animal Products" value="animal" />
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, marginTop:10,  alignContent: 'center', alignSelf: 'center'}}label="Dairy Products" value="dairy" />
+				</RadioButton.Group>
 
-			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Which category does the item fall under?</Text>
-			<RadioButton.Group onValueChange={value => setValue(value)} value={value} radioBackground="red">
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30, maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Fruits/Vegetables" value="veg" />
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, marginTop:10,  alignContent: 'center', alignSelf: 'center'}}label="Animal Products" value="animal" />
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, marginTop:10,  alignContent: 'center', alignSelf: 'center'}}label="Dairy Products" value="dairy" />
-			</RadioButton.Group>
+				<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Is the item grown or produced locally?</Text>
+				<RadioButton.Group onValueChange={value2 => setValue2(value2)} value={value2}>
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Yes" value="local" />
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center', marginTop:10}} label="No" value="nonlocal" />
+				</RadioButton.Group>
 
-			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Is the item grown or produced locally?</Text>
-			<RadioButton.Group onValueChange={value2 => setValue2(value2)} value={value2}>
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Yes" value="local" />
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center', marginTop:10}} label="No" value="nonlocal" />
-			</RadioButton.Group>
+				<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold',marginBottom: 25,}}>Is it red meat?</Text>
+				<RadioButton.Group onValueChange={value3 => setValue3(value3)} value={value3}>
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Yes" value="redmeat" />
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center', marginTop:10}} label="No" value="notredmeat" />
+				</RadioButton.Group>
 
-			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold',marginBottom: 25,}}>Is it red meat?</Text>
-			<RadioButton.Group onValueChange={value3 => setValue3(value3)} value={value3}>
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350,  alignContent: 'center', alignSelf: 'center'}} label="Yes" value="redmeat" />
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center', marginTop:10}} label="No" value="notredmeat" />
-			</RadioButton.Group>
+				<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Is it dairy free or plant-based?</Text>
+				<RadioButton.Group onValueChange={value4 => setValue4(value4)} value={value4}>
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center'}} label="Yes" value="dairyfree" />
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center', marginTop:10}} label="No" value="notdairyfree" />
+				</RadioButton.Group>
 
-			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Is it dairy free or plant-based?</Text>
-			<RadioButton.Group onValueChange={value4 => setValue4(value4)} value={value4}>
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center'}} label="Yes" value="dairyfree" />
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center', marginTop:10}} label="No" value="notdairyfree" />
-			</RadioButton.Group>
+				<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Does the product claim no artificial colours or flavours?</Text>
+				<RadioButton.Group onValueChange={value5 => setValue5(value5)} value={value5}>
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center'}} label="Yes" value="noartificial" />
+					<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center', marginTop:10}}label="No" value="hasartificial" />
+				</RadioButton.Group>
 
-			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Does the product claim no artificial colours or flavours?</Text>
-			<RadioButton.Group onValueChange={value5 => setValue5(value5)} value={value5}>
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center'}} label="Yes" value="noartificial" />
-			<RadioButton.Item style ={{fontSize: 12, backgroundColor: '#F8F8ED', borderRadius: 30,  maxWidth: 350, alignContent: 'center', alignSelf: 'center', marginTop:10}}label="No" value="hasartificial" />
-			</RadioButton.Group>
-
-			{/*<Text>{ecoScoreSurvey}/6</Text>*/}
-
-			<TouchableOpacity style={styles.button11}
-				onPress={() => navigation.navigate('Results')}>
-				<Text style={styles.button1Text}>Submit</Text>
+				<TouchableOpacity style={styles.button11}
+					onPress={() => navigation.navigate('Results')}>
+					<Text style={styles.button1Text}>Submit</Text>
 				</TouchableOpacity>
-     		 </ScrollView>
-
+    	</ScrollView>
 		</View>
 	);
 }
