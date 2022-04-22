@@ -24,8 +24,8 @@ const CONTENT = [
 	  isExpanded: false,
 	  category_name: 'Consumption of Meats',
 	  subcategory: [
-		{ id: 1, val: '\nSome people eat meat. Some do not. It is a personal decision. Rather than focusing on the question of: to meat or not to meat, think about reducing your FoodPrint by eating less meat, and paying attention to where it comes from, and how it is produced.\n\nHere are some ideas to improve your Meat Consumption FoodPrint:\n\nTips to Try:\n- Try "Meatless Mondays" in your home.\n- Cut your serving size of meat in half.' },
-		{ id: 2, val: '\nResorces For You:\nEating Sustainable Meat\nThe FoodPrint of Beef: A FoodPrint Report' },
+		{ id: 1, val: '\n\nSome people eat meat. Some do not. It is a personal decision. Rather than focusing on the question of: to meat or not to meat, think about reducing your FoodPrint by eating less meat, and paying attention to where it comes from, and how it is produced.\n\nHere are some ideas to improve your Meat Consumption FoodPrint:\n\nTips to Try:\n\n- Try "Meatless Mondays" in your home.\n- Cut your serving size of meat in half.' },
+		{ id: 2, val: '\nResorces For You:\n\nEating Sustainable Meat\nThe FoodPrint of Beef: A FoodPrint Report\n\n' },
 
 	  ],
 	},
@@ -33,13 +33,12 @@ const CONTENT = [
 	  isExpanded: false,
 	  category_name: 'Local and Seasonal Sourcing',
 	  subcategory: [
-		{ id: 4, val: 'When you buy locally sourced food, you support local farmers and local economies. Seasonal food is also often cheaper than out-of-season food, and it tastes way better.' },
+		{ id: 4, val: '\n\nWhen you buy locally sourced food, you support local farmers and local economies. Seasonal food is also often cheaper than out-of-season food, and it tastes way better.' },
 		{ id: 5, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:' },
 		{ id: 6, val: '\nTips to Try:' },
-		{ id: 7, val: '\nShop seasonal and local foods in your region. Visit the Real Food Encyclopedia.'},
+		{ id: 7, val: '\n- Shop seasonal and local foods in your region.\n- Visit the Real Food Encyclopedia.'},
 		{ id: 8, val: '\nResources For You:' },
-		{ id: 9, val: '\nSeasonal Food Guide' },
-		{ id: 10, val: '\nShopping Sustainably:' },
+		{ id: 9, val: '\nSeasonal Food Guide\nShopping Sustainably\n\n'},
 
 	  ],
 	},
@@ -47,22 +46,22 @@ const CONTENT = [
 	  isExpanded: false,
 	  category_name: 'Food Literacy',
 	  subcategory: [
-		{ id: 11, val: 'Knowledge is power when it comes to almost anything, especially food sustainability. The more you know about the food you eat – from the labels on the package to the practices used to produce it – the easier it is to make smart decisions that can improve your health and the planet.' },
+		{ id: 11, val: '\n\nKnowledge is power when it comes to almost anything, especially food sustainability. The more you know about the food you eat – from the labels on the package to the practices used to produce it – the easier it is to make smart decisions that can improve your health and the planet.' },
 		{ id: 12, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:' },
 		{ id: 13, val: '\nTips to Try:' },
 		{ id: 14, val: '\n- Learn what Food Labels really mean.\n- Visit the Real Food Encyclopedia.' },
 		{ id: 15, val: '\nResources For You:' },
-		{ id: 16, val: '\nShopping Sustainably\nReal Food Encyclopedia' },
+		{ id: 16, val: '\nShopping Sustainably\nReal Food Encyclopedia\n\n' },
 	  ],
 	},
 	{
 	  isExpanded: false,
 	  category_name: 'Food Waste',
 	  subcategory: [
-		{ id: 17, val: 'More than 40% of food is thrown out every year in the US. When you waste food, you waste all the resources it took to produce that food (think: water, time, labor) plus your own hard-earned money!' },
+		{ id: 17, val: '\n\nMore than 40% of food is thrown out every year in the US. When you waste food, you waste all the resources it took to produce that food (think: water, time, labor) plus your own hard-earned money!' },
 		{ id: 18, val: '\nTips to Try:'},
-		{ id: 19, val: 'Make a grocery list before you go shopping so you are not buying things you will not use.'},
-		{ id: 20, val: 'Compost or reuse food scraps.'},
+		{ id: 19, val: '\n- Make a grocery list before you go shopping so you are not buying things you will not use.'},
+		{ id: 20, val: '- Compost or reuse food scraps.'},
 		{ id: 21, val: '\nResources For You:' },
 		{ id: 22, val: '\nCooking Sustainably\nCompost 101' },
 	  ],
@@ -71,12 +70,12 @@ const CONTENT = [
 	  isExpanded: false,
 	  category_name: 'Animale Welfare',
 	  subcategory: [
-		{ id: 11, val: 'Factory farms, or concentrated animal feeding operations (CAFOs), inhumanely force animals to endure cramped, unhealthy conditions. They also have a negative impact on the environment, communities, farm workers and public health.' },
+		{ id: 11, val: '\n\nFactory farms, or concentrated animal feeding operations (CAFOs), inhumanely force animals to endure cramped, unhealthy conditions. They also have a negative impact on the environment, communities, farm workers and public health.' },
 		{ id: 12, val: '\nHere are some ideas to improve your Animal Welfare FoodPrint:' },
 		{ id: 13, val: '\nTips to Try:' },
 		{ id: 14, val: '\n- Look for Animal Welfare Approved labels on products at the shelf.\n- Find a local butcher that reliably sources humanely slaughtered meats.' },
 		{ id: 15, val: '\nResources For You:' },
-		{ id: 16, val: '\nFood Label Guide\nFarm Animal Welfare' },
+		{ id: 16, val: '\nFood Label Guide\nFarm Animal Welfare\n\n' },
 	  ],
 	},
   ];
@@ -233,16 +232,9 @@ const StartScreen = ({navigation}) => {
 		<View style={styles.container}>
 			<Image source={Logo} style={styles.Logo} />
 
-			<TouchableOpacity style={styles.button1}
+			<TouchableOpacity style={styles.button12}
 				onPress={() => navigation.navigate('Home')}>
 				<Text style={styles.button1Text}>Start</Text>
-			</TouchableOpacity>
-
-			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>
-				<Text style={styles.text}> Not what you scanned? </Text>
-			</TouchableOpacity>
-			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Tips')}>
-				<Text style={styles.text}> Learn more about your foodprint </Text>
 			</TouchableOpacity>
 
 		</View>
@@ -250,7 +242,6 @@ const StartScreen = ({navigation}) => {
 }
 
 const HomeScreen = ({navigation}) => {
-	alert("hello");
 	return(
 		<View style={styles.container}>
 			<Text style={styles.title1}> Welcome to EcoScanner! </Text>
@@ -340,7 +331,7 @@ const SurveyScreen = ({navigation}) => {
 
 			{/*<Text>{ecoScoreSurvey}/6</Text>*/}
 
-			<TouchableOpacity style={styles.button1}
+			<TouchableOpacity style={styles.button11}
 				onPress={() => navigation.navigate('Results')}>
 				<Text style={styles.button1Text}>Submit</Text>
 				</TouchableOpacity>
@@ -389,9 +380,9 @@ const SurveyResultScreen = (navigation) => {
 
 			<Text style={styles.title2}>Results:</Text>
 
-			<View style={{backgroundColor: bgColor1, borderRadius: 9, height: 500, width: 350, alignItems: 'center', marginTop:35}}>
+			<View style={{backgroundColor: bgColor1, borderRadius: 9, height:450, width: 350, alignItems: 'center', marginTop:55}}>
 
-			<Text style={{fontSize: 25, textAlign: 'center', marginTop: 25, fontWeight: 'bold',}}>EcoScore:</Text>
+			<Text style={{fontSize: 35, textAlign: 'center', marginTop: 45, fontWeight: 'bold',}}>EcoScore:</Text>
 
 			<ImageBackground source={Score} style={styles.Logo2}>
 				<View style={styles.textView}>
@@ -399,7 +390,7 @@ const SurveyResultScreen = (navigation) => {
 				</View>
 			</ImageBackground>
 
-			<Text style={{fontSize: 20, marginTop: 20, textAlign: 'center',}}>{tiptext1}</Text>
+			<Text style={{fontSize: 20, marginTop: 30, textAlign: 'center',}}>{tiptext1}</Text>
 			<Modal
         animationType="slide"
         transparent={true}
@@ -442,7 +433,7 @@ const SurveyResultScreen = (navigation) => {
 
 			<TouchableOpacity style={styles.button1}
 				onPress={() => navigation.navigate('Start')}>
-				<Text style={styles.button1Text}>Back</Text>
+				<Text style={styles.button1Text}>Back to Home</Text>
 			</TouchableOpacity>
 
 		</View>
@@ -474,7 +465,8 @@ const TipsScreen = ({navigation}) => {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={{ flexDirection: 'row', padding: 10 }}>
-          <Text style={styles.titleText}>Expandable List View</Text>
+          <Text style={styles.title1}>Learn More about your FoodPrint!</Text>
+		  <Text style={styles.text7}>Expand each tab below to read more.</Text>
           <TouchableOpacity onPress={() => setMultiSelect(!multiSelect)}>
             <Text
               style={{
@@ -500,7 +492,7 @@ const TipsScreen = ({navigation}) => {
         </ScrollView>
 		<TouchableOpacity style={styles.button1}
 				onPress={() => navigation.navigate('Start')}>
-				<Text style={styles.button1Text}>Back</Text>
+				<Text style={styles.button1Text}>Back to Home</Text>
 			</TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -696,7 +688,7 @@ const ResultsScreen = ({navigation, photo}) => {
 					}
 
 					mileage = (2.5*ecoValue).toFixed(2);
-
+					ecoValue = ecoValue.toFixed(2);
 
 					setPrediction(resultText);
 					/*
@@ -719,10 +711,10 @@ const ResultsScreen = ({navigation, photo}) => {
 			<Text style={styles.title2}>Results:</Text>
 
 
-			<View style={{backgroundColor: bgColor, borderRadius: 9, height: 500, width: 350, alignItems: 'center', marginTop:35}}>
+			<View style={{backgroundColor: bgColor, borderRadius: 9, height: 525, width: 350, alignItems: 'center', marginTop:15}}>
 
-			<Text style={{textTransform: 'capitalize', fontSize: 35, textAlign: 'center', marginTop:25, fontWeight: 'bold'}}>{prediction}</Text>
-			<Text style={{fontSize: 25, textAlign: 'center', marginTop: 25, fontWeight: 'bold',}}>EcoScore:</Text>
+			<Text style={{textTransform: 'capitalize', fontSize: 35, textAlign: 'center', marginTop:15, fontWeight: 'bold'}}>{prediction}</Text>
+			<Text style={{fontSize: 25, textAlign: 'center', marginTop: 10, fontWeight: 'bold',}}>EcoScore:</Text>
 
 			<ImageBackground source={Score} style={styles.Logo2}>
 				<View style={styles.textView}>
@@ -730,12 +722,12 @@ const ResultsScreen = ({navigation, photo}) => {
 				</View>
 			</ImageBackground>
 
-			<Text style={{fontSize: 20, marginTop: 20, textAlign: 'center',}}>{tiptext}</Text>
-			<Text style={{fontSize: 20, marginTop: 20, textAlign: 'center',}}>CO2e: {ecoValue}</Text>
-			<Text style={{fontSize: 20, flexDirection:'row',  flexWrap:'wrap', marginTop: 20,}}>Equivalent to:</Text>
+			<Text style={{fontSize: 20, marginTop: 10, textAlign: 'center',}}>{tiptext}</Text>
+			<Text style={{fontSize: 20, marginTop: 10, textAlign: 'center', fontWeight: 'bold'}}>Emissions in kg CO2eq:</Text>
+			<Text style={{fontSize: 20, marginTop: 5, textAlign: 'center', }}>{ecoValue}</Text>
+			<Text style={{fontSize: 20, flexDirection:'row',  flexWrap:'wrap', marginTop: 10, fontWeight: 'bold'}}>Equivalent to:</Text>
+			<Text style={{fontSize: 20, textAlign: 'center', flexWrap:'wrap',  marginTop: 5,}}>{mileage} KMs</Text>
 			<Image source={Car} style={styles.carLogo} />
-			<Text style={{fontSize: 20, textAlign: 'center', flexWrap:'wrap',  marginTop: 10,}}>{mileage} KMs</Text>
-
 			<Modal
         animationType="slide"
         transparent={true}
@@ -781,12 +773,12 @@ const ResultsScreen = ({navigation, photo}) => {
 
 			</View>
 
-			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Tips')}>
-				<Text style={styles.text}> Learn more about your foodprint </Text>
+			<TouchableOpacity style={styles.button44} onPress={() => navigation.navigate('Survey')}>
+				<Text style={styles.text}>Not what you scanned?</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Survey')}>
-				<Text style={styles.text}> Not what you scanned? </Text>
+			<TouchableOpacity style={styles.button44} onPress={() => navigation.navigate('Tips')}>
+				<Text style={styles.text}>Learn more about your FoodPrint</Text>
 			</TouchableOpacity>
 
 
@@ -822,7 +814,7 @@ const styles = StyleSheet.create({
 	button1:{
 		backgroundColor: '#F8F8ED',
 		marginTop: 30,
-    	padding: 20,
+    	padding: 10,
 		minWidth: 125,
     	borderRadius: 30,
 		borderWidth:2,
@@ -830,6 +822,32 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
+
+	button12:{
+		backgroundColor: '#F8F8ED',
+		marginTop: 90,
+    	padding: 10,
+		minWidth: 125,
+    	borderRadius: 30,
+		borderWidth:2,
+      	borderColor:'#769871',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	
+	button11:{
+		backgroundColor: '#F8F8ED',
+		marginTop: 30,
+    	padding: 10,
+		maxWidth: 90,
+    	borderRadius: 30,
+		borderWidth:2,
+      	borderColor:'#769871',
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginBottom: 30,
+	},
+
 	button2:{
 		backgroundColor: 'rgba(118, 152, 113, 1)',
 		marginTop: 30,
@@ -906,6 +924,20 @@ const styles = StyleSheet.create({
 		marginRight: 80,
 	},
 
+	button44:{
+		backgroundColor: '#F8F8ED',
+    	padding: 8,
+		minWidth: 200,
+    	borderRadius: 20,
+		borderWidth:2,
+      	borderColor:'#769871',
+		alignSelf: 'center',
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginTop: 20,
+	},
+
+
 	button5: {
 		borderRadius: 20,
 		padding: 10,
@@ -933,8 +965,8 @@ const styles = StyleSheet.create({
 	},
 
 	carLogo:{
-		height: 50,
-		width: 65,
+		height: 25,
+		width: 32,
 		flexDirection:'row',
 		flexWrap:'wrap',
 		marginTop: 10,
@@ -973,7 +1005,8 @@ const styles = StyleSheet.create({
 		color: 'black',
 		textDecorationLine: 'underline',
 		fontWeight: 'bold',
-		marginTop: 10,
+		marginTop: 5,
+
 	  },
 
 	  text3: {
