@@ -296,7 +296,7 @@ const SurveyScreen = ({navigation}) => {
 
 			<Text style ={{fontSize: 18, marginLeft: 15, textAlign: 'center', marginTop: 10, marginBottom:25}}>Take a short survey to test how eco-friendly your food is!</Text>
 
-			<ScrollView style={styles.container}>
+			<ScrollView>
 
 			<Text style ={{fontSize: 16, marginLeft: 15, marginTop: 25, fontWeight: 'bold', marginBottom: 25,}}>Which category does the item fall under?</Text>
 			<RadioButton.Group onValueChange={value => setValue(value)} value={value} radioBackground="red">
@@ -834,7 +834,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
-	
+
 	button11:{
 		backgroundColor: '#F8F8ED',
 		marginTop: 30,
