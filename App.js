@@ -227,6 +227,7 @@ export default function App() {
 	);
 }
 
+// @todo: Move to start-screen.js
 const StartScreen = ({navigation}) => {
 	return(
 		<View style={styles.container}>
@@ -241,6 +242,7 @@ const StartScreen = ({navigation}) => {
 	);
 }
 
+// @todo: Move to home-screen.js
 const HomeScreen = ({navigation}) => {
 	return(
 		<View style={styles.container}>
@@ -255,7 +257,8 @@ const HomeScreen = ({navigation}) => {
 	);
 }
 
-let ecoSurv = 0;
+let ecoSurv = 0; // @todo: Pass this variable to SurveyResultsScreen
+// @todo: Move to survey-screen.js
 const SurveyScreen = ({navigation}) => {
 
 	const [value, setValue] = React.useState('');
@@ -335,10 +338,12 @@ const SurveyScreen = ({navigation}) => {
 	);
 }
 
+// @todo: Move these variables within SurveyResultsScreen
 let ecoScore1 = 'N/A';
 let bgColor1 = '#F8F8ED';
 let tiptext1 = "Sorry, image not recognized :( ";
 
+// @todo: Move to survey-results-screen.js
 const SurveyResultScreen = (navigation) => {
 
 	const [modalVisible, setModalVisible] = useState(false);
@@ -434,6 +439,7 @@ const SurveyResultScreen = (navigation) => {
 	);
 };
 
+// @todo: Move to tips-screen.js
 const TipsScreen = ({navigation}) => {
 	const [listDataSource, setListDataSource] = useState(CONTENT);
   const [multiSelect, setMultiSelect] = useState(false);
@@ -493,7 +499,7 @@ const TipsScreen = ({navigation}) => {
   );
 };
 
-
+// @todo: I don't think this is used - if it's not then remove it
 resize = async photo => {
 	let manipulatedImage = await ImageManipulator.manipulateAsync(
 		photo,
@@ -503,6 +509,7 @@ resize = async photo => {
 	return manipulatedImage.base64;
 }
 
+// @todo: Move to camera-screen.js
 const CameraScreen = ({navigation, route}) => {
 	const [type, setType] = useState(Camera.Constants.Type.back);
 	const [previewVisible, setPreviewVisible] = useState(false)
@@ -559,6 +566,7 @@ const CameraScreen = ({navigation, route}) => {
   );
 }
 
+// @todo: Move to camera-preview.js
 const CameraPreview = ({photo, navigation }) => {
 	const [showResults, setShowResults] = useState(false);
 
@@ -608,6 +616,7 @@ let mileage = 0;
 let bgColor = '#F8F8ED';
 let tiptext = "Sorry, image not recognized :( ";
 
+// @todo: Move to results-screen.js
 const ResultsScreen = ({navigation, photo}) => {
 
 	const [modalVisible, setModalVisible] = useState(false);
@@ -782,8 +791,7 @@ const ResultsScreen = ({navigation, photo}) => {
 	)
 }
 
-
-
+// @todo: Move this to styles.js that can be imported from each file.
 const styles = StyleSheet.create({
 	res:{
 		textAlign: 'center',
