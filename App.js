@@ -24,8 +24,8 @@ const CONTENT = [
 	  isExpanded: false,
 	  category_name: 'Consumption of Meats',
 	  subcategory: [
-		{ id: 1, val: '\n\nSome people eat meat. Some do not. It is a personal decision. Rather than focusing on the question of: to meat or not to meat, think about reducing your FoodPrint by eating less meat, and paying attention to where it comes from, and how it is produced.\n\nHere are some ideas to improve your Meat Consumption FoodPrint:\n\nTips to Try:\n\n- Try "Meatless Mondays" in your home.\n- Cut your serving size of meat in half.' },
-		{ id: 2, val: '\nResorces For You:\n\nEating Sustainable Meat\nThe FoodPrint of Beef: A FoodPrint Report\n\n' },
+		{ id: 1, val: '\nSome people eat meat. Some do not. It is a personal decision. Rather than focusing on the question of: to meat or not to meat, think about reducing your FoodPrint by eating less meat, and paying attention to where it comes from, and how it is produced.\n' },
+		{ id:2, val: '\nHere are some ideas to improve your Meat Consumption FoodPrint:\n\nTips to Try:\n\n- Try "Meatless Mondays" in your home.\n- Cut your serving size of meat in half.\n\nResorces For You:\n\nEating Sustainable Meat\nThe FoodPrint of Beef: A FoodPrint Report\n\n'},
 
 	  ],
 	},
@@ -33,12 +33,8 @@ const CONTENT = [
 	  isExpanded: false,
 	  category_name: 'Local and Seasonal Sourcing',
 	  subcategory: [
-		{ id: 4, val: '\n\nWhen you buy locally sourced food, you support local farmers and local economies. Seasonal food is also often cheaper than out-of-season food, and it tastes way better.' },
-		{ id: 5, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:' },
-		{ id: 6, val: '\nTips to Try:' },
-		{ id: 7, val: '\n- Shop seasonal and local foods in your region.\n- Visit the Real Food Encyclopedia.'},
-		{ id: 8, val: '\nResources For You:' },
-		{ id: 9, val: '\nSeasonal Food Guide\nShopping Sustainably\n\n'},
+		{ id: 4, val: '\nWhen you buy locally sourced food, you support local farmers and local economies. Seasonal food is also often cheaper than out-of-season food, and it tastes way better.\n' },
+		{ id: 5, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:\n\nTips to Try:\n\n- Shop seasonal and local foods in your region.\n- Visit the Real Food Encyclopedia.\n\nResources For You:\n\nSeasonal Food Guide\nShopping Sustainably\n\n' },
 
 	  ],
 	},
@@ -46,36 +42,24 @@ const CONTENT = [
 	  isExpanded: false,
 	  category_name: 'Food Literacy',
 	  subcategory: [
-		{ id: 11, val: '\n\nKnowledge is power when it comes to almost anything, especially food sustainability. The more you know about the food you eat – from the labels on the package to the practices used to produce it – the easier it is to make smart decisions that can improve your health and the planet.' },
-		{ id: 12, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:' },
-		{ id: 13, val: '\nTips to Try:' },
-		{ id: 14, val: '\n- Learn what Food Labels really mean.\n- Visit the Real Food Encyclopedia.' },
-		{ id: 15, val: '\nResources For You:' },
-		{ id: 16, val: '\nShopping Sustainably\nReal Food Encyclopedia\n\n' },
+		{ id: 6, val: '\nKnowledge is power when it comes to almost anything, especially food sustainability. The more you know about the food you eat – from the labels on the package to the practices used to produce it – the easier it is to make smart decisions that can improve your health and the planet.\n' },
+		{ id: 7, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:\n\nTips to Try:\n\n- Learn what Food Labels really mean.\n- Visit the Real Food Encyclopedia.\n\nResources For You:\n\nShopping Sustainably\nReal Food Encyclopedia\n\n' },
 	  ],
 	},
 	{
 	  isExpanded: false,
 	  category_name: 'Food Waste',
 	  subcategory: [
-		{ id: 17, val: '\n\nMore than 40% of food is thrown out every year in the US. When you waste food, you waste all the resources it took to produce that food (think: water, time, labor) plus your own hard-earned money!' },
-		{ id: 18, val: '\nTips to Try:'},
-		{ id: 19, val: '\n- Make a grocery list before you go shopping so you are not buying things you will not use.'},
-		{ id: 20, val: '- Compost or reuse food scraps.'},
-		{ id: 21, val: '\nResources For You:' },
-		{ id: 22, val: '\nCooking Sustainably\nCompost 101' },
+		{ id: 8, val: '\nMore than 40% of food is thrown out every year in the US. When you waste food, you waste all the resources it took to produce that food (think: water, time, labor) plus your own hard-earned money!\n' },
+		{ id: 9, val: '\nHere are some ideas to improve your Local & Seasonal Sourcing FoodPrint:\n\nTips to Try:\n\n- Make a grocery list before you go shopping so you are not buying things you will not use.\n- Compost or reuse food scraps.\n\nResources For You:\n\nCooking Sustainably\nCompost 101\n\n'},
 	  ],
 	},
 	{
 	  isExpanded: false,
 	  category_name: 'Animale Welfare',
 	  subcategory: [
-		{ id: 11, val: '\n\nFactory farms, or concentrated animal feeding operations (CAFOs), inhumanely force animals to endure cramped, unhealthy conditions. They also have a negative impact on the environment, communities, farm workers and public health.' },
-		{ id: 12, val: '\nHere are some ideas to improve your Animal Welfare FoodPrint:' },
-		{ id: 13, val: '\nTips to Try:' },
-		{ id: 14, val: '\n- Look for Animal Welfare Approved labels on products at the shelf.\n- Find a local butcher that reliably sources humanely slaughtered meats.' },
-		{ id: 15, val: '\nResources For You:' },
-		{ id: 16, val: '\nFood Label Guide\nFarm Animal Welfare\n\n' },
+		{ id: 10, val: '\nFactory farms, or concentrated animal feeding operations (CAFOs), inhumanely force animals to endure cramped, unhealthy conditions. They also have a negative impact on the environment, communities, farm workers and public health.\n' },
+		{ id: 11, val: '\nHere are some ideas to improve your Animal Welfare FoodPrint:\n\nTips to Try:\n\n- Look for Animal Welfare Approved labels on products at the shelf.\n- Find a local butcher that reliably sources humanely slaughtered meats.\n\nResources For You:\n\nFood Label Guide\nFarm Animal Welfare\n\n' },
 	  ],
 	},
   ];
@@ -183,11 +167,11 @@ const ExpandableComponent = ({ item, onClickFunction }) => {
 	return (
 	  <View>
 		{/*Header of the Expandable List Item*/}
-		<TouchableOpacity
+		<TouchableOpacity 
 		  activeOpacity={0.8}
 		  onPress={onClickFunction}
-		  style={styles.header}>
-		  <Text style={styles.text10}>{item.category_name+ "       +"}</Text>
+		  style={{ borderBottomColor: '#769871', borderTopColor: '#769871', borderTopWidth:2, backgroundColor: '#F8F8ED', borderBottomWidth: 2, maxWidth:360, marginLeft:15, padding: 5}}>
+		  <Text style={{fontWeight: 'bold', color: '#769871', fontSize:21, marginLeft: 20,}}>{item.category_name+ "       +"}</Text>
 		</TouchableOpacity>
 		<View
 		  style={{
@@ -198,12 +182,12 @@ const ExpandableComponent = ({ item, onClickFunction }) => {
 		  {item.subcategory.map((item, key) => (
 			<TouchableOpacity
 			  key={key}
-			  style={styles.content}
-			  onPress={() => alert('Id: ' + item.id + ' val: ' + item.val)}>
-			  <Text style={styles.text5}>
+			  /*onPress={() => alert('Id: ' + item.id + ' val: ' + item.val)}*/
+			  style={{marginLeft:40, fontSize: 50, textAlign:'left', justifyContent: 'space-evenly', marginRight:20,}}>
+			  <Text style={{fontSize:16, textAlign:'left',}}>
 				{item.val}
 			  </Text>
-			  <View style={styles.separator} />
+			  <View style={{ borderBottomColor: '#769871' , borderBottomWidth: 2,}} />
 			</TouchableOpacity>
 		  ))}
 		</View>
@@ -252,7 +236,10 @@ const HomeScreen = ({navigation}) => {
 				onPress={() => navigation.navigate('Camera')}>
 			<Image source={Cam} style={styles.Cam} />
 				<Text style={styles.text9}>Proceed to Scanner!</Text>
-				</TouchableOpacity>
+			</TouchableOpacity>
+			<TouchableOpacity style={styles.button44} onPress={() => navigation.navigate('Tips')}>
+				<Text style={styles.text}>Learn more about your FoodPrint</Text>
+			</TouchableOpacity>
 		</View>
 	);
 }
@@ -268,7 +255,7 @@ const SurveyScreen = ({navigation}) => {
 	const [value5, setValue5] = React.useState('');
 
 
-	alert(value + ":" + value2 + ":" + value3 + ":" + value4 + ":" + value5);
+	{/*alert(value + ":" + value2 + ":" + value3 + ":" + value4 + ":" + value5);*/}
 
 	let ecoScoreSurvey = 0;
 
@@ -344,7 +331,7 @@ let bgColor1 = '#F8F8ED';
 let tiptext1 = "Sorry, image not recognized :( ";
 
 // @todo: Move to survey-results-screen.js
-const SurveyResultScreen = (navigation) => {
+const SurveyResultScreen = ({navigation}) => {
 
 	const [modalVisible, setModalVisible] = useState(false);
 
@@ -395,7 +382,7 @@ const SurveyResultScreen = (navigation) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          {/*Alert.alert('Modal has been closed.');*/}
           setModalVisible(!modalVisible);
         }}>
 	    <View style={styles.centeredView}>
@@ -459,25 +446,27 @@ const TipsScreen = ({navigation}) => {
       );
     }
     setListDataSource(array);
+	setMultiSelect(multiSelect);
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <View style={{ flexDirection: 'row', padding: 10 }}>
-          <Text style={styles.title1}>Learn More about your FoodPrint!</Text>
-		  <Text style={styles.text7}>Expand each tab below to read more.</Text>
-          <TouchableOpacity onPress={() => setMultiSelect(!multiSelect)}>
+        <View >
+          <Text style={styles.title1}>Learn more about your FoodPrint!</Text>
+		  <Text style={styles.text77}>Expand each tab below to read more.</Text>
+		  {/*<TouchableOpacity onPress={() => setMultiSelect(!multiSelect)}>
             <Text
               style={{
-                textAlign: 'center',
+                textAlign: 'left',
                 justifyContent: 'center',
+				fontSize:18,
               }}>
               {multiSelect
                 ? 'Enable Single \n Expand'
                 : 'Enalble Multiple \n Expand'}
             </Text>
-          </TouchableOpacity>
+			  </TouchableOpacity>*/}
         </View>
         <ScrollView>
           {listDataSource.map((item, key) => (
@@ -490,7 +479,7 @@ const TipsScreen = ({navigation}) => {
             />
           ))}
         </ScrollView>
-		<TouchableOpacity style={styles.button1}
+			<TouchableOpacity style={{backgroundColor: '#F8F8ED', marginTop: 30, padding: 10, minWidth: 125, borderRadius: 30, borderWidth:2, borderColor:'#769871', alignItems: 'center', justifyContent: 'center', marginBottom:30,}}
 				onPress={() => navigation.navigate('Start')}>
 				<Text style={styles.button1Text}>Back to Home</Text>
 			</TouchableOpacity>
@@ -736,7 +725,7 @@ const ResultsScreen = ({navigation, photo}) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          {/*Alert.alert('Modal has been closed.');*/}
           setModalVisible(!modalVisible);
         }}>
 	    <View style={styles.centeredView}>
@@ -759,8 +748,7 @@ const ResultsScreen = ({navigation, photo}) => {
 
 			<Text style={styles.text4}>What is your mileage?</Text>
 			<Text style={styles.text}></Text>
-			<Text style={styles.text5}>The "equivalent to" feature compares the carbon emissions emitted in the manufacturing process
-			for your food of choice and displays it in carbon emissions per mile for a care, for comparison.
+			<Text style={styles.text5}>The "equivalent to" feature compares the carbon emissions from the production and manufacturing processes for your chosen food and displays it in carbon emissions per mile for a car, for comparison.
 			</Text>
             <Pressable
               style={[styles.button5, styles.buttonClose]}
@@ -841,7 +829,8 @@ const styles = StyleSheet.create({
 		backgroundColor: '#F8F8ED',
 		marginTop: 30,
     	padding: 10,
-		maxWidth: 90,
+		maxWidth:100,
+		marginLeft:135,
     	borderRadius: 30,
 		borderWidth:2,
       	borderColor:'#769871',
@@ -1040,6 +1029,13 @@ const styles = StyleSheet.create({
 		color: 'black',
 		textAlign: 'center',
 		marginTop:20,
+	  },
+	  text77: {
+		fontSize: 18,
+		color: 'black',
+		textAlign: 'center',
+		marginTop:15,
+		marginBottom:20,
 	  },
 	  text8: {
 		fontSize: 24,
