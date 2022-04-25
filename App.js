@@ -6,7 +6,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Camera} from 'expo-camera';
 import Logo from './assets/title-logo.png';
-import Score from './assets/ecoScore.png';
+import Score1 from './assets/ecoScore1.png';
+import Score2 from './assets/ecoScore2.png';
+import Score3 from './assets/ecoScore3.png';
+import Score4 from './assets/ecoScore4.png';
+import Score5 from './assets/ecoScore5.png';
+import Score6 from './assets/ecoScore6.png';
 import Cam from './assets/photo-camera-interface-symbol-for-button.png';
 import Car from './assets/car.png';
 import { RadioButton } from 'react-native-paper';
@@ -327,8 +332,9 @@ const SurveyScreen = ({navigation}) => {
 
 // @todo: Move these variables within SurveyResultsScreen
 let ecoScore1 = 'N/A';
-let bgColor1 = '#F8F8ED';
+//let bgColor1 = '#769871';
 let tiptext1 = "Sorry, image not recognized :( ";
+let score1 = Score1;
 
 // @todo: Move to survey-results-screen.js
 const SurveyResultScreen = ({navigation}) => {
@@ -337,27 +343,33 @@ const SurveyResultScreen = ({navigation}) => {
 
 	if(ecoSurv == 6){
 		ecoScore1 = '6/6';
-		bgColor1 = '#0dd650';
+		//bgColor1 = '#0dd650';
 		tiptext1 = "Amazing! Greta Thunberg aspires to be like you!";
+		score1=Score6;
 	}else if (ecoSurv == 5){
 		ecoScore1 = '5/6';
-		bgColor1 = '#0dd650';
+		//bgColor1 = '#0dd650';
+		score1=Score6;
 		tiptext1 = "Wow. You're on a mission to save the earth, aren't you?";
 	} else if (ecoSurv == 4){
 		ecoScore1 = '4/6';
-		bgColor1 = '#86d60d';
+		//bgColor1 = '#86d60d';
+		score1=Score5;
 		tiptext1 = "Looking good. Keep it up!";
 	} else if (ecoSurv == 3){
 		ecoScore1 = '3/6';
-		bgColor1 = '#d6bf0d';
+		//bgColor1 = '#d6bf0d';
+		score1=Score4;
 		tiptext1 = "Not bad. You're making some good choices.";
 	} else if (ecoSurv == 2){
 		ecoScore1 = '2/6';
-		bgColor1 = '#d67f0d';
+		//bgColor1 = '#d67f0d';
+		score1=Score3;
 		tiptext1 = "Meh. Could be worse.";
 	} else {
 		ecoScore1 = '1/6';
-		bgColor1 = '#d61e0d';
+		//bgColor1 = '#d61e0d';
+		score1=Score2;
 		tiptext1 = "OK, we've got some work to do, but I believe in you!";
 	}
 
@@ -366,11 +378,11 @@ const SurveyResultScreen = ({navigation}) => {
 
 			<Text style={styles.title2}>Results:</Text>
 
-			<View style={{backgroundColor: bgColor1, borderRadius: 9, height:450, width: 350, alignItems: 'center', marginTop:55}}>
+			<View style={{backgroundColor: '#769871', borderRadius: 9, height:450, width: 350, alignItems: 'center', marginTop:55}}>
 
 			<Text style={{fontSize: 35, textAlign: 'center', marginTop: 45, fontWeight: 'bold',}}>EcoScore:</Text>
 
-			<ImageBackground source={Score} style={styles.Logo2}>
+			<ImageBackground source={score1} style={styles.Logo2}>
 				<View style={styles.textView}>
 				<Text style = {{fontSize: 60, textAlign: 'center',}}>{ecoScore1}</Text>
 				</View>
@@ -602,8 +614,9 @@ const CameraPreview = ({photo, navigation }) => {
 let ecoValue = 0;
 let ecoScore = 'N/A';
 let mileage = 0;
-let bgColor = '#F8F8ED';
+//let bgColor = '#F8F8ED';
 let tiptext = "Sorry, image not recognized :( ";
+let score = Score1;
 
 // @todo: Move to results-screen.js
 const ResultsScreen = ({navigation, photo}) => {
@@ -659,23 +672,28 @@ const ResultsScreen = ({navigation, photo}) => {
 					ecoValue = foodList.get(resultText.toUpperCase());
 					if(ecoValue>0.0 && ecoValue<1.2){
 						ecoScore = '5/5';
-						bgColor = '#0dd650';
+						//bgColor = '#0dd650';
+						score = Score6;
 						tiptext = "Wow. You're on a mission to save the earth, aren't you?";
 					} else if(ecoValue>1.2 && ecoValue<3.4){
 						ecoScore = '4/5';
-						bgColor = '#86d60d';
+						//bgColor = '#86d60d';
+						score = Score5;
 						tiptext = "Looking good. Keep it up!";
 					} else if(ecoValue>3.4 && ecoValue<6.7){
 						ecoScore = '3/5';
-						bgColor = '#d6bf0d';
+						//bgColor = '#d6bf0d';
+						score = Score4;
 						tiptext = "Not bad. You're making some good choices.";
 					} else if(ecoValue>6.7 && ecoValue<9){
 						ecoScore = '2/5';
-						bgColor = '#d67f0d';
+						//bgColor = '#d67f0d';
+						score = Score3;
 						tiptext = "Meh. Could be worse.";
 					} else {
 						ecoScore= '1/5';
-						bgColor = '#d61e0d';
+						//bgColor = '#d61e0d';
+						score = Score2;
 						tiptext = "OK, we've got some work to do, but I believe in you!";
 					}
 
@@ -703,12 +721,12 @@ const ResultsScreen = ({navigation, photo}) => {
 			<Text style={styles.title2}>Results:</Text>
 
 
-			<View style={{backgroundColor: bgColor, borderRadius: 9, height: 525, width: 350, alignItems: 'center', marginTop:15}}>
+			<View style={{backgroundColor: '#769871', borderRadius: 9, height: 525, width: 350, alignItems: 'center', marginTop:15}}>
 
 			<Text style={{textTransform: 'capitalize', fontSize: 35, textAlign: 'center', marginTop:15, fontWeight: 'bold'}}>{prediction}</Text>
 			<Text style={{fontSize: 25, textAlign: 'center', marginTop: 10, fontWeight: 'bold',}}>EcoScore:</Text>
 
-			<ImageBackground source={Score} style={styles.Logo2}>
+			<ImageBackground source={score} style={styles.Logo2}>
 				<View style={styles.textView}>
 				<Text style = {{fontSize: 60, textAlign: 'center',}}>{ecoScore}</Text>
 				</View>
