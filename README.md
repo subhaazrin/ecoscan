@@ -21,18 +21,23 @@
 > 
 > Windows users: [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows), Bash via WSL, or the VSCode terminal.
 
-## 3.Installing Expo CLI
+## 3.Download and Extract Zip.file from submission or [github repository](https://github.com/subhaazrin/ecoscan)
+
+## 4.Open your terminal and go to the extracted file in terminal
+For me it looks like this on Windows command prompt:
+```C:\Users\subha\Downloads\ecolove-firebase>```
+
+## 5.Installing Expo CLI
 ```
 npm install --global expo-cli
 ```
 Verify that the installation was successful by running ```expo whoami```. You're not logged in yet, so you will see "Not logged in". You can create an account by running ```expo register``` if you like, or if you have one already run ```expo login```, but you also don't need an account to get started.
 
-## 4.Download and Extract Zip.file from submission or [github repository](https://github.com/subhaazrin/ecoscan)
+## 6.Install NPM
+```
+npm install
+```
+```
+yarn install
+```
 
-## 5.Open file in VS Code or any other Editor.
-```
-git branch -m firebase ecoscan
-git fetch origin
-git branch -u origin/ecoscan ecoscan
-git remote set-head origin -a
-```
