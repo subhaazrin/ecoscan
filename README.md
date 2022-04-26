@@ -27,6 +27,9 @@ npm install --global expo-cli
 ```
 Verify that the installation was successful by running ```expo whoami```. You're not logged in yet, so you will see "Not logged in". You can create an account by running ```expo register``` if you like, or if you have one already run ```expo login```, but you also don't need an account to get started.
 
+## 4.Download and Extract Zip.file from submission or [github repository](https://github.com/subhaazrin/ecoscan)
+
+## 5.Open file in VS Code or any other Editor.
 ```
 git branch -m firebase ecoscan
 git fetch origin
