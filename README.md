@@ -19,7 +19,7 @@
 > 
 > [Yarn](https://classic.yarnpkg.com/en/docs/install)
 > 
-> Windows users: [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows), Bash via WSL, or the VSCode terminal.
+> Windows users: [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows), Command Prompt, Bash via WSL, or the VSCode terminal.
 
 ## 3. Download Expo Go App
 > 🤖 [Android Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent) - Android Lollipop (5) and greater.
