@@ -378,7 +378,7 @@ const SurveyResultScreen = ({navigation}) => {
 
 			<Text style={styles.title2}>Results:</Text>
 
-			<View style={{backgroundColor: '#769871', borderRadius: 9, height:450, width: 350, alignItems: 'center', marginTop:55}}>
+			<View style={{backgroundColor: '#f8f8edff', borderRadius: 9, height:450, width: 350, alignItems: 'center', marginTop:55}}>
 
 			<Text style={{fontSize: 35, textAlign: 'center', marginTop: 45, fontWeight: 'bold',}}>EcoScore:</Text>
 
@@ -721,7 +721,7 @@ const ResultsScreen = ({navigation, photo}) => {
 			<Text style={styles.title2}>Results:</Text>
 
 
-			<View style={{backgroundColor: '#769871', borderRadius: 9, height: 525, width: 350, alignItems: 'center', marginTop:15}}>
+			<View style={{backgroundColor: '#f8f8edff', borderRadius: 9, height: 525, width: 350, alignItems: 'center', marginTop:15}}>
 
 			<Text style={{textTransform: 'capitalize', fontSize: 35, textAlign: 'center', marginTop:15, fontWeight: 'bold'}}>{prediction}</Text>
 			<Text style={{fontSize: 25, textAlign: 'center', marginTop: 10, fontWeight: 'bold',}}>EcoScore:</Text>
