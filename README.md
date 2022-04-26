@@ -5,6 +5,7 @@
 ## 1.Requirements
 
 > Node.js LTS release
+> 
 > Git
 > Watchman for macOS or Linux users
 
