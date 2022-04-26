@@ -1,21 +1,25 @@
 # ecolove
 
-###To test out the app, please follow the setup intstructions below:
+### To test out the app, please follow the setup intstructions below:
 
-##1.Requirements
+## 1.Requirements
 
->Node.js LTS release
->Git
->Watchman for macOS or Linux users
+> Node.js LTS release
+> Git
+> Watchman for macOS or Linux users
+
 *Only Node.js LTS releases (even-numbered) are recommended. As Node.js officially states, "Production applications should only use Active LTS or Maintenance LTS releases."*
 
-##2.Recommended Tools
->VSCode Editor
->VSCode Expo Extension for app.json debugging and autocomplete.
->Yarn
->Windows users: PowerShell, Bash via WSL, or the VSCode terminal.
+## 2.Recommended Tools
+> VSCode Editor
 
-##3.Installing Expo CLI
+> VSCode Expo Extension for app.json debugging and autocomplete.
+
+> Yarn
+
+> Windows users: PowerShell, Bash via WSL, or the VSCode terminal.
+
+## 3.Installing Expo CLI
 ```
 npm install --global expo-cli
 ```
