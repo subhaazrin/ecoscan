@@ -21,23 +21,43 @@
 > 
 > Windows users: [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows), Bash via WSL, or the VSCode terminal.
 
-## 3.Download and Extract Zip.file from submission or [github repository](https://github.com/subhaazrin/ecoscan)
+## 3. Download Expo Go App
+> 🤖 [Android Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent) - Android Lollipop (5) and greater.
+> 
+> 🍎 [iOS App Store](https://apps.apple.com/app/expo-go/id982107779) - iOS 11 and greater.
 
-## 4.Open your terminal and go to the extracted file in terminal
+*When the Expo Go app is finished installing, open it up. If you created an account with ```expo-cli``` then you can sign in here on the "Profile" tab. This will make it easier for you to open projects in the client when you have them open in development — they will appear automatically in the "Projects" tab of the client app.*
+
+## 4.Download and Extract Zip.file from submission or [github repository](https://github.com/subhaazrin/ecoscan)
+
+## 5.Open your terminal and go to the extracted file in terminal
 For me it looks like this on Windows command prompt:
-```C:\Users\subha\Downloads\ecolove-firebase>```
+```C:\Users\subha\Downloads\ecoscan\ecoscan>```
 
-## 5.Installing Expo CLI
+## 6.Installing Expo CLI
+Enter in terminal:
 ```
 npm install --global expo-cli
 ```
 Verify that the installation was successful by running ```expo whoami```. You're not logged in yet, so you will see "Not logged in". You can create an account by running ```expo register``` if you like, or if you have one already run ```expo login```, but you also don't need an account to get started.
 
-## 6.Install NPM
+## 7.Install NPM
+Enter in terminal:
 ```
 npm install
 ```
+or
 ```
 yarn install
 ```
+
+## 8.Run EXPO
+Enter in terminal:
+```
+expo start
+```
+
+## 8. Scan the QR code from phone
+A QR code should appear that you can scan. It will open the app through the expo go app.
+You can also see the app in the 'Projects' section of Expo Go.
 
