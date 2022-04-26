@@ -28,7 +28,8 @@
 
 *When the Expo Go app is finished installing, open it up. If you created an account with ```expo-cli``` then you can sign in here on the "Profile" tab. This will make it easier for you to open projects in the client when you have them open in development — they will appear automatically in the "Projects" tab of the client app.*
 
-## 4.Download and Extract Zip.file from submission or [github repository](https://github.com/subhaazrin/ecoscan)
+## 4.Download and Extract Zip.file 
+You can download zip.file from Technovation submission or the [github repository](https://github.com/subhaazrin/ecoscan)
 
 ## 5.Open your terminal and go to the extracted file in terminal
 For me it looks like this on Windows command prompt:
