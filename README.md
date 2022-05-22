@@ -62,3 +62,6 @@ expo start
 A QR code should appear that you can scan. It will open the app through the expo go app.
 You can also see the app in the 'Projects' section of Expo Go.
 
+## 9. Still Stuck?
+Check out our [Demo](https://youtu.be/U10Paa_e3s8) Video!
+
