@@ -1,6 +1,6 @@
 # ecolove
 
-### To test out the app, please follow the setup intstructions below:
+### To test out the app, please follow the setup intstructions below or check out our [Demo](https://youtu.be/U10Paa_e3s8) Video!:
 
 ## 1.Requirements
 
