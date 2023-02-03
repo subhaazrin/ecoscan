@@ -1,5 +1,7 @@
 # ecolove
 
+###This app was developed through pair programming of Subha and Mairah, but the commits were made from one account. Regardless of commits being made from one account, the contribution was from both Subha and Mairah. Thanks.
+
 ### To test out the app, please follow the setup intstructions below or check out our [Demo](https://youtu.be/U10Paa_e3s8) Video!:
 
 ## 1.Requirements
